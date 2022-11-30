@@ -41,7 +41,7 @@ public class APICall {
         }
     }
 
-    public RequestManager(Context context) {
+    public void RequestManager(Context context) {
         this.context = context;
     }
 
