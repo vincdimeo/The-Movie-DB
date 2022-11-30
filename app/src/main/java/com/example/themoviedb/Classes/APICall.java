@@ -1,6 +1,11 @@
-package com.example.themoviedb;
+package com.example.themoviedb.Classes;
 import android.content.Context;
 import android.widget.Toast;
+
+import com.example.themoviedb.MoviesApiResponse;
+import com.example.themoviedb.OnFetchDataListener;
+import com.example.themoviedb.R;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
