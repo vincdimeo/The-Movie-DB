@@ -87,6 +87,7 @@ public class Media implements Serializable {
         }
     }
 
+    /*
     public void checkExistInList(Media media, String list) {
         class Checker extends AsyncTask<Void, Void, String> {
             DescriptionFragment descriptionFragment = DescriptionFragment.getInstance();
@@ -224,4 +225,5 @@ public class Media implements Serializable {
         ListLoader listLoader = new ListLoader();
         listLoader.execute();
     }
+    */
 }

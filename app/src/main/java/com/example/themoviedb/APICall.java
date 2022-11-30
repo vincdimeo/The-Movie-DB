@@ -18,13 +18,13 @@ public class APICall {
             .build();
 
     public void getNewsHeadlines(OnFetchDataListener listener, String category, String query) {
-        CallNewsApi callNewsApi = retrofit.create(CallNewsApi.class);
-        Call<NewsApiResponse> call = callNewsApi.callHeadlines("it", category, query, context.getString(R.string.api_key));
+        CallMoviesApi callNewsApi = retrofit.create(CallMoviesApi.class);
+        Call<MoviesApiResponse> call = callNewsApi.callHeadlines("it", category, query, context.getString(R.string.api_key));
 
         try {
-            call.enqueue(new Callback<NewsApiResponse>() {
+            call.enqueue(new Callback<MoviesApiResponse>() {
                 @Override
-                public void onResponse(Call<NewsApiResponse> call, Response<NewsApiResponse> response) {
+                public void onResponse(Call<MoviesApiResponse> call, Response<MoviesApiResponse> response) {
                     if(!response.isSuccessful()) {
                         Toast.makeText(context, "Error!", Toast.LENGTH_SHORT).show();
                     }
@@ -32,7 +32,7 @@ public class APICall {
                 }
 
                 @Override
-                public void onFailure(Call<NewsApiResponse> call, Throwable t) {
+                public void onFailure(Call<MoviesApiResponse> call, Throwable t) {
                     listener.onError("Request Failed!");
                 }
             });
@@ -46,12 +46,12 @@ public class APICall {
     }
 
     public interface CallMoviesApi {
-        @GET("top-headlines")
-        Call<NewsApiResponse> callHeadlines(
-                @Query("country") String country,
+        @GET("movie")
+        Call<MoviesApiResponse> callHeadlines(
+                @Query("popular") String country,
                 @Query("category") String category,
                 @Query("q") String query,
-                @Query("apiKey") String api_key
+                @Query("api_key") String api_key
         );
     }
 }
