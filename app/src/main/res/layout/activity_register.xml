@@ -84,32 +84,40 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
+                    android:minHeight="48dp"
                     android:text="Daltonismo di Protan"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:onClick="onRadioButtonClicked" />
 
                 <RadioButton
                     android:id="@+id/deutan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="false"
+                    android:minHeight="48dp"
                     android:text="Deutan daltonismo"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:onClick="onRadioButtonClicked" />
 
                 <RadioButton
                     android:id="@+id/acrimatico"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="false"
+                    android:minHeight="48dp"
                     android:text="Daltonismo Acrimatico"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:onClick="onRadioButtonClicked" />
 
                 <RadioButton
-                    android:id="@+id/radioMale"
+                    android:id="@+id/ipermetropia"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="false"
+                    android:minHeight="48dp"
                     android:text="Ipermetropia"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:onClick="onRadioButtonClicked" />
 
             </RadioGroup>
 
