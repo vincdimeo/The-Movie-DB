@@ -75,6 +75,7 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MyViewHolder
 
         void setMedia(Media media) {
             mediaTitle.setText(media.getTitle());
+            System.out.println("Foto: " + media.getCover());
 
             /*
             if (media.getCover().equals("null")) {

@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -27,6 +28,7 @@ public class ReleasesFragment extends Fragment {
 
     private RecyclerView popolariRV, serieRV, netflixRV;
     private MediaAdapter mediaAdapter;
+
     public ReleasesFragment() {
         // Required empty public constructor
     }
@@ -34,9 +36,6 @@ public class ReleasesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
 
         APICall api = new APICall(getContext());
         api.getPopularMovies(listener, "it-IT");
@@ -47,8 +46,9 @@ public class ReleasesFragment extends Fragment {
         public void onFetchData(List<Media> list, String message) {
             if (list.isEmpty()) {
                 Toast.makeText(getContext(), "No data found!", Toast.LENGTH_SHORT).show();
-            } else{
-                mediaAdapter = new MediaAdapter((ArrayList<Media>) list,getContext());
+            }
+            else {
+                mediaAdapter = new MediaAdapter((ArrayList<Media>) list, getContext());
                 popolariRV.setAdapter(mediaAdapter);
             }
         }
@@ -66,18 +66,25 @@ public class ReleasesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_releases, container, false);
 
         popolariRV = view.findViewById(R.id.popolariRV);
-        serieRV = view.findViewById(R.id.serieRV);
-        netflixRV = view.findViewById(R.id.netflixRV);
-
-
         popolariRV.setHasFixedSize(true);
-        popolariRV.setLayoutManager(new GridLayoutManager(getContext(), 1));
+        serieRV = view.findViewById(R.id.serieRV);
+        serieRV.setHasFixedSize(true);
+        netflixRV = view.findViewById(R.id.netflixRV);
+        netflixRV.setHasFixedSize(true);
 
+        LinearLayoutManager ll1 = new LinearLayoutManager(this.getContext());
+        ll1.setOrientation(LinearLayoutManager.HORIZONTAL);
 
+        LinearLayoutManager ll2 = new LinearLayoutManager(this.getContext());
+        ll2.setOrientation(LinearLayoutManager.HORIZONTAL);
 
+        LinearLayoutManager ll3 = new LinearLayoutManager(this.getContext());
+        ll3.setOrientation(LinearLayoutManager.HORIZONTAL);
+
+        popolariRV.setLayoutManager(ll1);
+        serieRV.setLayoutManager(ll2);
+        netflixRV.setLayoutManager(ll3);
 
         return  view;
     }
-
-
 }

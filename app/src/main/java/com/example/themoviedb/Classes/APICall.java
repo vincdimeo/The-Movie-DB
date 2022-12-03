@@ -15,7 +15,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 
-
 public class APICall {
     Context context;
 
@@ -58,7 +57,6 @@ public class APICall {
         Call<MoviesApiResponse> callHeadlines(
                 @Query("api_key") String api_key,
                 @Query("language") String language
-
         );
     }
 }

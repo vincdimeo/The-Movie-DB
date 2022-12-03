@@ -63,8 +63,5 @@ public class RegisterActivity extends AppCompatActivity {
                     tipologia = "Ipermetropia";
                 break;
         }
-
-        Toast.makeText(RegisterActivity.this, tipologia, Toast.LENGTH_SHORT).show();
     }
-
 }
