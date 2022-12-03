@@ -20,13 +20,13 @@ public class APICall {
     Context context;
 
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://api.themoviedb.org/3/movie")
+            .baseUrl("https://api.themoviedb.org/3/movie/")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
     public void getPopularMovies(OnFetchDataListener listener, String language) {
         CallMoviesApi callMoviesApi = retrofit.create(CallMoviesApi.class);
-        Call<MoviesApiResponse> call = callMoviesApi.callHeadlines(context.getString(R.string.api_key), language);
+        Call<MoviesApiResponse> call = callMoviesApi.callHeadlines("6ff4c2846a2910d753ff91a81eee4f6c", language);
 
         try {
             call.enqueue(new Callback<MoviesApiResponse>() {
@@ -35,12 +35,13 @@ public class APICall {
                     if(!response.isSuccessful()) {
                         Toast.makeText(context, "Error!", Toast.LENGTH_SHORT).show();
                     }
-                    listener.onFetchData(response.body().getArticles(), response.message());
+                    listener. onFetchData(response.body().getMovies(), response.message());
                 }
 
                 @Override
                 public void onFailure(Call<MoviesApiResponse> call, Throwable t) {
                     listener.onError("Request Failed!");
+                    System.out.println("Mannacc a maronn *****************************");
                 }
             });
         } catch (Exception e) {

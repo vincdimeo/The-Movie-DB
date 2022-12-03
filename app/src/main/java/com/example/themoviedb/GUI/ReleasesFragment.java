@@ -3,19 +3,30 @@ package com.example.themoviedb.GUI;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.example.themoviedb.Adapters.MediaAdapter;
+import com.example.themoviedb.Classes.APICall;
+import com.example.themoviedb.Classes.Media;
+import com.example.themoviedb.Classes.MoviesApiResponse;
+import com.example.themoviedb.Classes.OnFetchDataListener;
+import com.example.themoviedb.MainActivity;
 import com.example.themoviedb.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ReleasesFragment extends Fragment {
 
     private RecyclerView popolariRV, serieRV, netflixRV;
-
+    private MediaAdapter mediaAdapter;
     public ReleasesFragment() {
         // Required empty public constructor
     }
@@ -23,7 +34,30 @@ public class ReleasesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
+
+        APICall api = new APICall(getContext());
+        api.getPopularMovies(listener, "it-IT");
     }
+
+    final OnFetchDataListener<MoviesApiResponse> listener = new OnFetchDataListener<MoviesApiResponse>() {
+        @Override
+        public void onFetchData(List<Media> list, String message) {
+            if (list.isEmpty()) {
+                Toast.makeText(getContext(), "No data found!", Toast.LENGTH_SHORT).show();
+            } else{
+                mediaAdapter = new MediaAdapter((ArrayList<Media>) list,getContext());
+                popolariRV.setAdapter(mediaAdapter);
+            }
+        }
+
+        @Override
+        public void onError(String message) {
+            Toast.makeText(getContext(), "An Error Occurred!", Toast.LENGTH_SHORT).show();
+        }
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,6 +69,15 @@ public class ReleasesFragment extends Fragment {
         serieRV = view.findViewById(R.id.serieRV);
         netflixRV = view.findViewById(R.id.netflixRV);
 
+
+        popolariRV.setHasFixedSize(true);
+        popolariRV.setLayoutManager(new GridLayoutManager(getContext(), 1));
+
+
+
+
         return  view;
     }
+
+
 }

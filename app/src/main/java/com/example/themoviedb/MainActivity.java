@@ -50,26 +50,9 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                 }
 
-                APICall api = new APICall(MainActivity.this);
-                api.getPopularMovies(listener, "it-IT");
-
                 return false;
             }
-            private final OnFetchDataListener<MoviesApiResponse> listener = new OnFetchDataListener<MoviesApiResponse>() {
-                @Override
-                public void onFetchData(List<Media> list, String message) {
-                    if (list.isEmpty()) {
-                        Toast.makeText(MainActivity.this, "No data found!", Toast.LENGTH_SHORT).show();
-                    } else{
 
-                    }
-                }
-
-                @Override
-                public void onError(String message) {
-                    Toast.makeText(MainActivity.this, "An Error Occurred!", Toast.LENGTH_SHORT).show();
-                }
-            };
 
 
 

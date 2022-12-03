@@ -8,7 +8,7 @@ import java.util.List;
 public class MoviesApiResponse implements Serializable {
     String status;
     int totalResults;
-    List<Media> articles;
+    List<Media> results;
 
     public String getStatus() {
         return status;
@@ -26,11 +26,11 @@ public class MoviesApiResponse implements Serializable {
         this.totalResults = totalResults;
     }
 
-    public List<Media> getArticles() {
-        return articles;
+    public List<Media> getMovies() {
+        return results;
     }
 
-    public void setArticles(List<Media> articles) {
-        this.articles = articles;
+    public void setMovies(List<Media> results) {
+        this.results = results;
     }
 }
