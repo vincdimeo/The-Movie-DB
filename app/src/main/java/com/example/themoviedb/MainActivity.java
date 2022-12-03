@@ -2,6 +2,9 @@ package com.example.themoviedb;
 
 import android.os.Bundle;
 
+import com.example.themoviedb.Classes.APICall;
+import com.example.themoviedb.Classes.MoviesApiResponse;
+import com.example.themoviedb.Classes.*;
 import com.example.themoviedb.GUI.LoginFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
@@ -20,6 +23,9 @@ import com.example.themoviedb.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,8 +55,25 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                 }
 
+
                 return false;
             }
+
+
         });
     }
+
+    private final OnFetchDataListener<MoviesApiResponse> listener = new <MoviesApiResponse>() {
+        @Override
+        public void onFetchData(List<MoviesApiResponse> list, String message) {
+            if (list.isEmpty()) {
+                Toast.makeText(MainActivity.this, "No data found!", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        public void onError(String message) {
+            Toast.makeText(MainActivity.this, "An Error Occurred!", Toast.LENGTH_SHORT).show();
+        }
+    };
 }

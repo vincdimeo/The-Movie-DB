@@ -1,8 +1,8 @@
 package com.example.themoviedb.Classes;
+
 import android.content.Context;
 import android.widget.Toast;
 
-import com.example.themoviedb.MoviesApiResponse;
 import com.example.themoviedb.OnFetchDataListener;
 import com.example.themoviedb.R;
 
@@ -17,14 +17,15 @@ import retrofit2.http.Query;
 
 public class APICall {
     Context context;
+
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://api.themoviedb.org/3/")
+            .baseUrl("https://api.themoviedb.org/3/movie")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
-    public void getNewsHeadlines(OnFetchDataListener listener, String category, String query) {
-        CallMoviesApi callNewsApi = retrofit.create(CallMoviesApi.class);
-        Call<MoviesApiResponse> call = callNewsApi.callHeadlines("it", category, query, context.getString(R.string.api_key));
+    public void getPopularMovies(OnFetchDataListener listener, String language) {
+        CallMoviesApi callMoviesApi = retrofit.create(CallMoviesApi.class);
+        Call<MoviesApiResponse> call = callMoviesApi.callHeadlines(context.getString(R.string.api_key), language);
 
         try {
             call.enqueue(new Callback<MoviesApiResponse>() {
@@ -51,12 +52,11 @@ public class APICall {
     }
 
     public interface CallMoviesApi {
-        @GET("movie")
+        @GET("popular")
         Call<MoviesApiResponse> callHeadlines(
-                @Query("popular") String country,
-                @Query("category") String category,
-                @Query("q") String query,
-                @Query("api_key") String api_key
+                @Query("api_key") String api_key,
+                @Query("language") String language
+
         );
     }
 }
