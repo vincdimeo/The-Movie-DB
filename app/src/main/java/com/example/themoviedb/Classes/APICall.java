@@ -3,7 +3,7 @@ package com.example.themoviedb.Classes;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.example.themoviedb.OnFetchDataListener;
+
 import com.example.themoviedb.R;
 
 import retrofit2.Call;
@@ -13,6 +13,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
+
 
 
 public class APICall {
@@ -47,7 +48,7 @@ public class APICall {
         }
     }
 
-    public void RequestManager(Context context) {
+    public APICall(Context context) {
         this.context = context;
     }
 

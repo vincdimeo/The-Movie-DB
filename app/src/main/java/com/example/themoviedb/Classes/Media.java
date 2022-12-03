@@ -1,4 +1,4 @@
-package com.example.themoviedb;
+package com.example.themoviedb.Classes;
 
 import android.app.ProgressDialog;
 import android.content.Context;

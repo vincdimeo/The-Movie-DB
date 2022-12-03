@@ -1,6 +1,6 @@
 package com.example.themoviedb.Classes;
 
-import com.example.themoviedb.Media;
+
 
 import java.io.Serializable;
 import java.util.List;
