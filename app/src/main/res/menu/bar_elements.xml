@@ -3,11 +3,11 @@
     <item
         android:id="@+id/releases"
         android:icon="@drawable/ic_home"
-        android:title="Releases" />
+        android:title="Novità" />
     <item
         android:id="@+id/search"
         android:icon="@drawable/ic_search"
-        android:title="Search" />
+        android:title="Cerca" />
 
     <item
         android:id="@+id/account"

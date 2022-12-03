@@ -10,12 +10,14 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.example.themoviedb.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText username, password;
     private String tipologia;
     private Button registraBtn;
+    private FloatingActionButton backBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,14 @@ public class RegisterActivity extends AppCompatActivity {
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         registraBtn = findViewById(R.id.registraBtn);
+        backBtn = findViewById(R.id.backBtn);
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
     }
 
     public void onRadioButtonClicked(View view) {

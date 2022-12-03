@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +21,7 @@ public class LoginFragment extends Fragment {
 
     private EditText username, password;
     private TextView registratiLbl;
+    private CheckBox ricordaUsername;
     private Button loginBtn;
 
     public LoginFragment() {
@@ -40,6 +42,7 @@ public class LoginFragment extends Fragment {
         username = view.findViewById(R.id.username);
         password = view.findViewById(R.id.password);
         registratiLbl = view.findViewById(R.id.registratiLbl);
+        ricordaUsername = view.findViewById(R.id.ricordaUsername);
         loginBtn = view.findViewById(R.id.loginBtn);
 
         registratiLbl.setOnClickListener(new View.OnClickListener() {
@@ -55,6 +58,14 @@ public class LoginFragment extends Fragment {
             public void onClick(View view) {
                 if (username.getText().toString().isEmpty() || password.getText().toString().isEmpty()) {
                     Toast.makeText(getContext(), "Alcuni campi sono vuoti", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    // Controllo credenziali sul db
+                    /*
+                    if (ricordaUsername.isChecked()) {
+                        // Memorizza username in SharedPreferences
+                    }
+                    */
                 }
             }
         });
