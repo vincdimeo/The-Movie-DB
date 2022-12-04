@@ -14,7 +14,7 @@
         android:layout_marginTop="16dp"
         android:text="Registrati"
         android:textColor="@color/black"
-        android:textSize="40sp"
+        android:textSize="@dimen/title_dimen"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/backBtn"
         app:layout_constraintTop_toTopOf="parent" />
@@ -45,7 +45,7 @@
                 android:drawableTint="@color/purple"
                 android:hint="Username"
                 android:paddingStart="20sp"
-                android:textSize="20sp"
+                android:textSize="@dimen/label_dimen"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -64,7 +64,7 @@
                 android:hint="Password"
                 android:inputType="textPassword"
                 android:paddingStart="20sp"
-                android:textSize="20sp"
+                android:textSize="@dimen/label_dimen"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/username" />
@@ -77,7 +77,7 @@
                 android:layout_marginTop="32dp"
                 android:text="Impostazioni schermo"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="@dimen/label_dimen"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/password" />
@@ -104,6 +104,7 @@
                 android:backgroundTint="@color/black"
                 android:text="Registrati"
                 android:textColor="@color/white"
+                android:textSize="@dimen/label_dimen"
                 app:cornerRadius="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

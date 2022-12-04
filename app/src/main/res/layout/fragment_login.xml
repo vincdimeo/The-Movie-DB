@@ -14,7 +14,7 @@
         android:layout_marginTop="16dp"
         android:text="Login"
         android:textColor="@color/black"
-        android:textSize="40sp"
+        android:textSize="@dimen/title_dimen"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -39,7 +39,7 @@
             android:drawableTint="@color/purple"
             android:hint="Username"
             android:paddingStart="20sp"
-            android:textSize="20sp"
+            android:textSize="@dimen/label_dimen"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -58,7 +58,7 @@
             android:hint="Password"
             android:inputType="textPassword"
             android:paddingStart="20sp"
-            android:textSize="20sp"
+            android:textSize="@dimen/label_dimen"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/username" />
@@ -71,7 +71,7 @@
             android:layout_marginTop="16dp"
             android:text="Ricorda username"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="@dimen/label_dimen"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/password" />
 
@@ -85,6 +85,7 @@
             android:backgroundTint="@color/black"
             android:text="Login"
             android:textColor="@color/white"
+            android:textSize="@dimen/label_dimen"
             app:cornerRadius="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -119,10 +120,12 @@
         android:id="@+id/registratiLbl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:text="Non hai un account? Registrati"
         android:textColor="@color/black"
-        android:textSize="18sp"
+        android:textSize="@dimen/label_dimen"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

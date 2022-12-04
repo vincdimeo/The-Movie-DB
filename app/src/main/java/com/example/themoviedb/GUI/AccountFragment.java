@@ -1,5 +1,7 @@
 package com.example.themoviedb.GUI;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -56,6 +58,22 @@ public class AccountFragment extends Fragment implements AdapterView.OnItemSelec
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        switch (spinnerAdapter.getItem(i)) {
+            case "Scala di grigi":
+                break;
+
+            case "Filtro rosso/verde":
+                break;
+
+            case "Filtro verde/rosso":
+                break;
+
+            case "Filtro blu/giallo":
+                break;
+
+            case "Testo grande":
+                break;
+        }
         Toast.makeText(getContext(), spinnerAdapter.getItem(i), Toast.LENGTH_SHORT).show();
     }
 

@@ -1,5 +1,7 @@
 package com.example.themoviedb;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.example.themoviedb.Classes.APICall;
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                         return true;
 
                     case R.id.account:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new LoginFragment()).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AccountFragment()).commit();
                         return true;
                 }
 

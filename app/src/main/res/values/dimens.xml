@@ -1,3 +1,7 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="title_dimen">40sp</dimen>
+    <dimen name="label_dimen">18sp</dimen>
+    <dimen name="cover_width_dimen">100dp</dimen>
+    <dimen name="cover_height_dimen">140dp</dimen>
 </resources>
