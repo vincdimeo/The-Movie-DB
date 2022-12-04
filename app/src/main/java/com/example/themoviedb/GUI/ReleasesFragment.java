@@ -27,7 +27,7 @@ import java.util.List;
 public class ReleasesFragment extends Fragment {
 
     private RecyclerView popolariRV, serieRV, netflixRV;
-    private MediaAdapter mediaAdapter;
+    private MediaAdapter popularAdapter, upcomingAdapter, latestAdapter;
 
     public ReleasesFragment() {
         // Required empty public constructor
@@ -39,6 +39,7 @@ public class ReleasesFragment extends Fragment {
 
         APICall api = new APICall(getContext());
         api.getPopularMovies(listener, "it-IT");
+        api.getUpcomingMovies(listener,"it-IT");
     }
 
     final OnFetchDataListener<MoviesApiResponse> listener = new OnFetchDataListener<MoviesApiResponse>() {
@@ -48,8 +49,15 @@ public class ReleasesFragment extends Fragment {
                 Toast.makeText(getContext(), "No data found!", Toast.LENGTH_SHORT).show();
             }
             else {
-                mediaAdapter = new MediaAdapter((ArrayList<Media>) list, getContext());
-                popolariRV.setAdapter(mediaAdapter);
+                if(popularAdapter == null){
+                    popularAdapter = new MediaAdapter((ArrayList<Media>) list, getContext());
+                    popolariRV.setAdapter(popularAdapter);
+                }
+                else{
+                    upcomingAdapter = new MediaAdapter((ArrayList<Media>) list, getContext());
+                    serieRV.setAdapter(upcomingAdapter);
+                }
+
             }
         }
 
@@ -84,6 +92,8 @@ public class ReleasesFragment extends Fragment {
         popolariRV.setLayoutManager(ll1);
         serieRV.setLayoutManager(ll2);
         netflixRV.setLayoutManager(ll3);
+
+
 
         return  view;
     }

@@ -22,10 +22,11 @@ public class APICall {
             .baseUrl("https://api.themoviedb.org/3/movie/")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
+    String api_key;
 
     public void getPopularMovies(OnFetchDataListener listener, String language) {
         CallMoviesApi callMoviesApi = retrofit.create(CallMoviesApi.class);
-        Call<MoviesApiResponse> call = callMoviesApi.callHeadlines("6ff4c2846a2910d753ff91a81eee4f6c", language);
+        Call<MoviesApiResponse> call = callMoviesApi.callPopular(api_key, language);
 
         try {
             call.enqueue(new Callback<MoviesApiResponse>() {
@@ -48,13 +49,45 @@ public class APICall {
         }
     }
 
+    public void getUpcomingMovies(OnFetchDataListener listener, String language) {
+        CallMoviesApi callMoviesApi = retrofit.create(CallMoviesApi.class);
+        Call<MoviesApiResponse> call = callMoviesApi.callUpcoming(api_key, language);
+
+        try {
+            call.enqueue(new Callback<MoviesApiResponse>() {
+                @Override
+                public void onResponse(Call<MoviesApiResponse> call, Response<MoviesApiResponse> response) {
+                    if(!response.isSuccessful()) {
+                        Toast.makeText(context, "Error!", Toast.LENGTH_SHORT).show();
+                    }
+                    listener.onFetchData(response.body().getMovies(), response.message());
+                }
+
+                @Override
+                public void onFailure(Call<MoviesApiResponse> call, Throwable t) {
+                    listener.onError("Request Failed!");
+                    System.out.println("Mannacc a maronn *****************************");
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public APICall(Context context) {
         this.context = context;
+        api_key = context.getString(R.string.api_key);
     }
 
     public interface CallMoviesApi {
         @GET("popular")
-        Call<MoviesApiResponse> callHeadlines(
+        Call<MoviesApiResponse> callPopular(
+                @Query("api_key") String api_key,
+                @Query("language") String language
+        );
+
+        @GET("upcoming")
+        Call<MoviesApiResponse> callUpcoming(
                 @Query("api_key") String api_key,
                 @Query("language") String language
         );

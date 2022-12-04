@@ -15,7 +15,7 @@ import java.util.HashMap;
 public class Media implements Serializable {
     private String id;
     private String title;
-    private String cover;
+    private String poster_path;
     private String backdrop;
     private String description;
     private String releaseDate;
@@ -24,7 +24,7 @@ public class Media implements Serializable {
 
     public Media(String id, String cover, String backdrop, String title, String description, String releaseDate, String valutation, String type) {
         this.id=id;
-        this.cover = cover;
+        this.poster_path = cover;
         this.title = title;
         this.description = description;
         this.releaseDate = releaseDate;
@@ -43,7 +43,7 @@ public class Media implements Serializable {
     public String getBackdrop() { return backdrop; }
 
     public String getCover() {
-        return cover;
+        return poster_path;
     }
 
     public String getTitle() {

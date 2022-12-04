@@ -77,14 +77,14 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MyViewHolder
             mediaTitle.setText(media.getTitle());
             System.out.println("Foto: " + media.getCover());
 
-            /*
-            if (media.getCover().equals("null")) {
+
+            if (media.getCover() == null) {
                 mediaImg.setImageResource(R.drawable.ic_launcher_background);
             }
             else {
                 Picasso.with(context).load("https://image.tmdb.org/t/p/w500" + media.getCover()).into(mediaImg);
             }
-            */
+
         }
     }
 }
