@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".GUI.RegisterActivity">
 
-
     <TextView
         android:id="@+id/registratiTitolo"
         android:layout_width="wrap_content"
@@ -70,56 +69,29 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/username" />
 
-            <RadioGroup
-                android:id="@+id/tipologie"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/impostazioniTitolo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:text="Impostazioni schermo"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/password" />
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/password">
-
-                <RadioButton
-                    android:id="@+id/protan"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:minHeight="48dp"
-                    android:onClick="onRadioButtonClicked"
-                    android:text="Daltonismo di Protan"
-                    android:textSize="20sp" />
-
-                <RadioButton
-                    android:id="@+id/deutan"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="false"
-                    android:minHeight="48dp"
-                    android:onClick="onRadioButtonClicked"
-                    android:text="Deutan daltonismo"
-                    android:textSize="20sp" />
-
-                <RadioButton
-                    android:id="@+id/acrimatico"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="false"
-                    android:minHeight="48dp"
-                    android:onClick="onRadioButtonClicked"
-                    android:text="Daltonismo Acrimatico"
-                    android:textSize="20sp" />
-
-                <RadioButton
-                    android:id="@+id/ipermetropia"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="false"
-                    android:minHeight="48dp"
-                    android:onClick="onRadioButtonClicked"
-                    android:text="Ipermetropia"
-                    android:textSize="20sp" />
-
-            </RadioGroup>
+                app:layout_constraintTop_toBottomOf="@+id/impostazioniTitolo" />
 
             <Button
                 android:id="@+id/registraBtn"
@@ -136,7 +108,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tipologie" />
+                app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

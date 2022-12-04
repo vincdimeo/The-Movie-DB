@@ -51,7 +51,7 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MyViewHolder
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, MediaDescriptorActivity.class);
-                intent.putExtra("Film", listMedia.get(position));
+                intent.putExtra("Media", listMedia.get(position));
                 context.startActivity(intent);
             }
         });
@@ -84,7 +84,6 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MyViewHolder
             else {
                 Picasso.with(context).load("https://image.tmdb.org/t/p/w500" + media.getCover()).into(mediaImg);
             }
-
         }
     }
 }

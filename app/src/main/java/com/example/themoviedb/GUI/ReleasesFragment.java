@@ -93,8 +93,6 @@ public class ReleasesFragment extends Fragment {
         serieRV.setLayoutManager(ll2);
         netflixRV.setLayoutManager(ll3);
 
-
-
         return  view;
     }
 }

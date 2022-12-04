@@ -45,7 +45,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 android:ellipsize="end"
-                android:maxLines="2"
+                android:maxLines="4"
                 android:text="Media titolo"
                 android:textColor="@color/white"
                 android:textSize="40sp"
@@ -56,7 +56,7 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
-                android:id="@+id/tramaTitolo"
+                android:id="@+id/impostazioniTitolo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -80,7 +80,7 @@
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tramaTitolo" />
+                app:layout_constraintTop_toBottomOf="@+id/impostazioniTitolo" />
 
             <TextView
                 android:id="@+id/informazioniTitolo"

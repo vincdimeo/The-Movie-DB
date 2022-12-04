@@ -4,20 +4,24 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.themoviedb.Adapters.SpinnerAdapter;
 import com.example.themoviedb.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private EditText username, password;
-    private String tipologia;
     private Button registraBtn;
     private FloatingActionButton backBtn;
+    private Spinner impostazioniSchermo;
+    private SpinnerAdapter spinnerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +32,11 @@ public class RegisterActivity extends AppCompatActivity {
         password = findViewById(R.id.password);
         registraBtn = findViewById(R.id.registraBtn);
         backBtn = findViewById(R.id.backBtn);
+        impostazioniSchermo = findViewById(R.id.spinner);
+        impostazioniSchermo.setOnItemSelectedListener(this);
+
+        spinnerAdapter = new SpinnerAdapter(this);
+        impostazioniSchermo.setAdapter(spinnerAdapter);
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,31 +46,13 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    public void onRadioButtonClicked(View view) {
-        // Is the button now checked?
-        boolean checked = ((RadioButton) view).isChecked();
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        Toast.makeText(RegisterActivity.this, spinnerAdapter.getItem(i), Toast.LENGTH_SHORT).show();
+    }
 
-        // Check which radio button was clicked
-        switch(view.getId()) {
-            case R.id.protan:
-                if (checked)
-                    tipologia = "Protan";
-                    break;
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
 
-            case R.id.deutan:
-                if (checked)
-                    tipologia = "Deutan";
-                    break;
-
-            case R.id.acrimatico:
-                if (checked)
-                    tipologia = "Acrimatico";
-                break;
-
-            case R.id.ipermetropia:
-                if (checked)
-                    tipologia = "Ipermetropia";
-                break;
-        }
     }
 }

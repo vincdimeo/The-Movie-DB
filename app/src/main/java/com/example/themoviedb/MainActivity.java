@@ -7,6 +7,7 @@ import com.example.themoviedb.Classes.MoviesApiResponse;
 import com.example.themoviedb.Classes.*;
 
 
+import com.example.themoviedb.GUI.AccountFragment;
 import com.example.themoviedb.GUI.LoginFragment;
 import com.example.themoviedb.GUI.ReleasesFragment;
 import com.example.themoviedb.GUI.SearchFragment;
@@ -54,6 +55,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
 }
