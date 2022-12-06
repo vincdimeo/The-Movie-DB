@@ -26,6 +26,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static String tema = "";
     private BottomNavigationView bottomNav;
 
     @Override

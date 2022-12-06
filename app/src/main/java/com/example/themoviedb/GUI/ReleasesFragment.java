@@ -7,9 +7,11 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.themoviedb.Adapters.MediaAdapter;
@@ -28,6 +30,7 @@ public class ReleasesFragment extends Fragment {
 
     private RecyclerView popolariRV, serieRV, netflixRV;
     private MediaAdapter popularAdapter, upcomingAdapter, latestAdapter;
+    private TextView popolariLbl, serieLbl, netflixLbl;
 
     public ReleasesFragment() {
         // Required empty public constructor
@@ -73,10 +76,13 @@ public class ReleasesFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_releases, container, false);
 
+        popolariLbl = view.findViewById(R.id.popolari);
         popolariRV = view.findViewById(R.id.popolariRV);
         popolariRV.setHasFixedSize(true);
+        serieLbl = view.findViewById(R.id.serieTV);
         serieRV = view.findViewById(R.id.serieRV);
         serieRV.setHasFixedSize(true);
+        netflixLbl = view.findViewById(R.id.netflix);
         netflixRV = view.findViewById(R.id.netflixRV);
         netflixRV.setHasFixedSize(true);
 
@@ -93,6 +99,33 @@ public class ReleasesFragment extends Fragment {
         serieRV.setLayoutManager(ll2);
         netflixRV.setLayoutManager(ll3);
 
+        switch (MainActivity.tema) {
+            case "Nessuno":
+                break;
+
+            case "Scala di grigi":
+                break;
+
+            case "Filtro rosso/verde":
+                break;
+
+            case "Filtro verde/rosso":
+                break;
+
+            case "Filtro blu/giallo":
+                break;
+
+            case "Testo grande":
+                increaseText();
+                break;
+        }
+
         return  view;
+    }
+
+    private void increaseText() {
+        popolariLbl.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_large));
+        serieLbl.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_large));
+        netflixLbl.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_large));
     }
 }

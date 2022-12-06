@@ -56,7 +56,7 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
-                android:id="@+id/impostazioniTitolo"
+                android:id="@+id/tramaLbl"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -80,7 +80,7 @@
                 android:textSize="@dimen/label_dimen"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/impostazioniTitolo" />
+                app:layout_constraintTop_toBottomOf="@+id/tramaLbl" />
 
             <TextView
                 android:id="@+id/informazioniTitolo"

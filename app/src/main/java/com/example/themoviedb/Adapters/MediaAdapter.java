@@ -2,6 +2,8 @@ package com.example.themoviedb.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.provider.MediaStore;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.themoviedb.Classes.Media;
 import com.example.themoviedb.GUI.MediaDescriptorActivity;
+import com.example.themoviedb.MainActivity;
 import com.example.themoviedb.R;
 import com.squareup.picasso.Picasso;
 
@@ -47,6 +50,24 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MyViewHolder
     public void onBindViewHolder(@NonNull MediaAdapter.MyViewHolder holder, int position) {
         holder.setMedia(listMedia.get(position));
 
+        switch (MainActivity.tema) {
+            case "Scala di grigi":
+                break;
+
+            case "Filtro rosso/verde":
+                break;
+
+            case "Filtro verde/rosso":
+                break;
+
+            case "Filtro blu/giallo":
+                break;
+
+            case "Testo grande":
+                increaseText(holder);
+                break;
+        }
+
         holder.mediaImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,6 +76,12 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MyViewHolder
                 context.startActivity(intent);
             }
         });
+    }
+
+    private void increaseText(MediaAdapter.MyViewHolder holder) {
+        holder.mediaTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimension(R.dimen.label_large));
+        holder.mediaImg.getLayoutParams().width = 400;
+        holder.mediaImg.getLayoutParams().height = 650;
     }
 
     @Override

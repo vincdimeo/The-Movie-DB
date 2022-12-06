@@ -6,15 +6,18 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.themoviedb.Adapters.SpinnerAdapter;
+import com.example.themoviedb.MainActivity;
 import com.example.themoviedb.R;
 
 
@@ -23,6 +26,7 @@ public class AccountFragment extends Fragment implements AdapterView.OnItemSelec
     private Spinner impostazioniSchermo;
     private SpinnerAdapter spinnerAdapter;
     private Button logoutBtn;
+    private TextView impostazioniLbl;
 
     public AccountFragment() {
         // Required empty public constructor
@@ -44,6 +48,8 @@ public class AccountFragment extends Fragment implements AdapterView.OnItemSelec
 
         spinnerAdapter = new SpinnerAdapter(getContext());
         impostazioniSchermo.setAdapter(spinnerAdapter);
+
+        impostazioniLbl = view.findViewById(R.id.impostazioniTitolo);
 
         logoutBtn = view.findViewById(R.id.logoutBtn);
         logoutBtn.setOnClickListener(new View.OnClickListener() {
@@ -72,13 +78,21 @@ public class AccountFragment extends Fragment implements AdapterView.OnItemSelec
                 break;
 
             case "Testo grande":
+                MainActivity.tema = "Testo grande";
+                increaseText();
                 break;
         }
+
         Toast.makeText(getContext(), spinnerAdapter.getItem(i), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+
+    private void increaseText() {
+        impostazioniLbl.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_large));
+        logoutBtn.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_large));
     }
 }
