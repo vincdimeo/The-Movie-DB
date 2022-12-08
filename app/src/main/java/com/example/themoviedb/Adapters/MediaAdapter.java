@@ -51,6 +51,10 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MyViewHolder
         holder.setMedia(listMedia.get(position));
 
         switch (MainActivity.tema) {
+            case "Nessuno":
+                setDefaultTextSize(holder);
+                break;
+
             case "Scala di grigi":
                 break;
 
@@ -82,6 +86,12 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MyViewHolder
         holder.mediaTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimension(R.dimen.label_large));
         holder.mediaImg.getLayoutParams().width = 400;
         holder.mediaImg.getLayoutParams().height = 650;
+    }
+
+    private void setDefaultTextSize(MediaAdapter.MyViewHolder holder) {
+        holder.mediaTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimension(R.dimen.label_dimen));
+        holder.mediaImg.getLayoutParams().width = 300;
+        holder.mediaImg.getLayoutParams().height = 450;
     }
 
     @Override

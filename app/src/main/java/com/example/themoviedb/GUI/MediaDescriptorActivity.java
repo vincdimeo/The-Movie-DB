@@ -54,6 +54,7 @@ public class MediaDescriptorActivity extends AppCompatActivity {
 
         switch (MainActivity.tema) {
             case "Nessuno":
+                setDefaultTextSize();
                 break;
 
             case "Scala di grigi":
@@ -80,5 +81,13 @@ public class MediaDescriptorActivity extends AppCompatActivity {
         infoLbl.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_large));
         mediaDataRilascio.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_large));
         mediaValutazione.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_large));
+    }
+
+    private void setDefaultTextSize() {
+        tramaLbl.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_dimen));
+        mediaTrama.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_dimen));
+        infoLbl.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_dimen));
+        mediaDataRilascio.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_dimen));
+        mediaValutazione.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_dimen));
     }
 }

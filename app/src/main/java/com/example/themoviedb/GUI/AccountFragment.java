@@ -26,7 +26,7 @@ public class AccountFragment extends Fragment implements AdapterView.OnItemSelec
     private Spinner impostazioniSchermo;
     private SpinnerAdapter spinnerAdapter;
     private Button logoutBtn;
-    private TextView impostazioniLbl;
+    private TextView username, impostazioniLbl;
 
     public AccountFragment() {
         // Required empty public constructor
@@ -42,6 +42,9 @@ public class AccountFragment extends Fragment implements AdapterView.OnItemSelec
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_account, container, false);
+
+        username = view.findViewById(R.id.username);
+        username.setText("Hey,\n" +MainActivity.utente.getUsername());
 
         impostazioniSchermo = view.findViewById(R.id.spinner);
         impostazioniSchermo.setOnItemSelectedListener(this);
@@ -65,6 +68,12 @@ public class AccountFragment extends Fragment implements AdapterView.OnItemSelec
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         switch (spinnerAdapter.getItem(i)) {
+            case "Nessuno":
+                MainActivity.tema = "Nessuno";
+                setDefaultTextSize();
+                spinnerAdapter.setDefaultTextSize();
+                break;
+
             case "Scala di grigi":
                 break;
 
@@ -80,10 +89,9 @@ public class AccountFragment extends Fragment implements AdapterView.OnItemSelec
             case "Testo grande":
                 MainActivity.tema = "Testo grande";
                 increaseText();
+                spinnerAdapter.increaseText();
                 break;
         }
-
-        Toast.makeText(getContext(), spinnerAdapter.getItem(i), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -94,5 +102,10 @@ public class AccountFragment extends Fragment implements AdapterView.OnItemSelec
     private void increaseText() {
         impostazioniLbl.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_large));
         logoutBtn.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_large));
+    }
+
+    private void setDefaultTextSize() {
+        impostazioniLbl.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_dimen));
+        logoutBtn.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_dimen));
     }
 }

@@ -101,6 +101,7 @@ public class ReleasesFragment extends Fragment {
 
         switch (MainActivity.tema) {
             case "Nessuno":
+                setDefaultTextSize();
                 break;
 
             case "Scala di grigi":
@@ -127,5 +128,11 @@ public class ReleasesFragment extends Fragment {
         popolariLbl.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_large));
         serieLbl.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_large));
         netflixLbl.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_large));
+    }
+
+    private void setDefaultTextSize() {
+        popolariLbl.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_dimen));
+        serieLbl.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_dimen));
+        netflixLbl.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_dimen));
     }
 }

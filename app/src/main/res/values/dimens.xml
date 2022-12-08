@@ -1,5 +1,6 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+
     <dimen name="title_dimen">40sp</dimen>
     <dimen name="label_dimen">18sp</dimen>
     <dimen name="cover_width_dimen">300px</dimen>

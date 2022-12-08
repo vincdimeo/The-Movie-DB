@@ -1,6 +1,7 @@
 package com.example.themoviedb.Adapters;
 
 import android.content.Context;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 import com.example.themoviedb.R;
 
 public class SpinnerAdapter extends BaseAdapter {
+
+    private  TextView filtro, tipologia;
 
     private String[] filtri = {
             "Nessuno",
@@ -50,11 +53,21 @@ public class SpinnerAdapter extends BaseAdapter {
         return 0;
     }
 
+    public void increaseText() {
+        filtro.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimension(R.dimen.label_large));
+        tipologia.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimension(R.dimen.label_large));
+    }
+
+    public void setDefaultTextSize() {
+        filtro.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimension(R.dimen.label_dimen));
+        tipologia.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimension(R.dimen.label_dimen));
+    }
+
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         view = LayoutInflater.from(context).inflate(R.layout.spinner_layout, null);
-        TextView filtro = (TextView) view.findViewById(R.id.filtro);
-        TextView tipologia = (TextView) view.findViewById(R.id.tipologia);
+        filtro = (TextView) view.findViewById(R.id.filtro);
+        tipologia = (TextView) view.findViewById(R.id.tipologia);
         filtro.setText(filtri[i]);
         tipologia.setText(tipologie[i]);
         return view;
