@@ -27,11 +27,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginTitolo">
 
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="350px"
+            android:layout_height="350px"
+            android:src="@drawable/icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <EditText
             android:id="@+id/username"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/custom_edit_text"
             android:drawableStart="@drawable/ic_account"
@@ -42,7 +53,7 @@
             android:textSize="@dimen/label_dimen"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/icon" />
 
         <EditText
             android:id="@+id/password"
