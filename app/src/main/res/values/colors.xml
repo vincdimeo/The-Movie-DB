@@ -4,4 +4,6 @@
     <color name="black">#2D2D2A</color>
     <color name="white">#FFFFFF</color>
     <color name="grey">#9C9C9C</color>
+
+    <color name="black_GreyScale">#000000</color>
 </resources>

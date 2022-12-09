@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/accountPh"
         android:layout_width="350px"
         android:layout_height="350px"
         android:layout_marginTop="16dp"
@@ -43,7 +43,7 @@
         android:textSize="@dimen/label_dimen"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/accountPh" />
 
     <Spinner
         android:id="@+id/spinner"

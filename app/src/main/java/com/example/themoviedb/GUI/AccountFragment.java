@@ -1,6 +1,7 @@
 package com.example.themoviedb.GUI;
 
-import android.content.Context;
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -12,9 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.themoviedb.Adapters.SpinnerAdapter;
 import com.example.themoviedb.MainActivity;
@@ -26,6 +27,7 @@ public class AccountFragment extends Fragment implements AdapterView.OnItemSelec
     private Spinner impostazioniSchermo;
     private SpinnerAdapter spinnerAdapter;
     private Button logoutBtn;
+    private ImageView accountFoto;
     private TextView username, impostazioniLbl;
 
     public AccountFragment() {
@@ -52,6 +54,12 @@ public class AccountFragment extends Fragment implements AdapterView.OnItemSelec
         spinnerAdapter = new SpinnerAdapter(getContext());
         impostazioniSchermo.setAdapter(spinnerAdapter);
 
+        if (MainActivity.tema != "") {
+            impostazioniSchermo.setSelection(spinnerAdapter.getIndexOf(MainActivity.tema));
+        }
+
+        accountFoto = view.findViewById(R.id.accountPh);
+
         impostazioniLbl = view.findViewById(R.id.impostazioniTitolo);
 
         logoutBtn = view.findViewById(R.id.logoutBtn);
@@ -75,6 +83,9 @@ public class AccountFragment extends Fragment implements AdapterView.OnItemSelec
                 break;
 
             case "Scala di grigi":
+                MainActivity.tema = "Scala di grigi";
+                setGreyScale();
+                spinnerAdapter.setDefaultTextSize();
                 break;
 
             case "Filtro rosso/verde":
@@ -92,11 +103,27 @@ public class AccountFragment extends Fragment implements AdapterView.OnItemSelec
                 spinnerAdapter.increaseText();
                 break;
         }
+
+        saveTheme(spinnerAdapter.getItem(i));
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+
+    private void saveTheme(String tema) {
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("Utente", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("Tema", tema);
+        editor.commit();
+    }
+
+    private void setGreyScale() {
+        username.setTextColor(getResources().getColor(R.color.black_GreyScale));
+        impostazioniLbl.setTextColor(getResources().getColor(R.color.black_GreyScale));
+        logoutBtn.setBackgroundColor(getResources().getColor(R.color.black_GreyScale));
+        accountFoto.setColorFilter(getResources().getColor(R.color.grey));
     }
 
     private void increaseText() {
@@ -105,7 +132,10 @@ public class AccountFragment extends Fragment implements AdapterView.OnItemSelec
     }
 
     private void setDefaultTextSize() {
+        username.setTextColor(getResources().getColor(R.color.black));
         impostazioniLbl.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_dimen));
         logoutBtn.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_dimen));
+        logoutBtn.setBackgroundColor(getResources().getColor(R.color.black));
+        accountFoto.setColorFilter(getResources().getColor(R.color.purple));
     }
 }

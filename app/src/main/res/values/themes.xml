@@ -19,6 +19,12 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="ScalaDiGrigi">
+        <item name="colorPrimary">@color/grey</item>
+        <item name="colorPrimaryVariant">@color/black_GreyScale</item>
+        <item name="colorOnPrimary">@color/white</item>
+    </style>
+
     <style name="Theme.TheMovieDB.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.TheMovieDB.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

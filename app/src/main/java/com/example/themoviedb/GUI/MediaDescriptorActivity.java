@@ -3,6 +3,8 @@ package com.example.themoviedb.GUI;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
@@ -58,6 +60,8 @@ public class MediaDescriptorActivity extends AppCompatActivity {
                 break;
 
             case "Scala di grigi":
+                setDefaultTextSize();
+                setGrayScale();
                 break;
 
             case "Filtro rosso/verde":
@@ -75,7 +79,21 @@ public class MediaDescriptorActivity extends AppCompatActivity {
         }
     }
 
+    private void setGrayScale() {
+        ColorMatrix matrix = new ColorMatrix();
+        matrix.setSaturation(0);
+        ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+        mediaCover.setColorFilter(filter);
+        backBtn.setColorFilter(filter);
+        tramaLbl.setTextColor(getResources().getColor(R.color.black_GreyScale));
+        mediaTrama.setTextColor(getResources().getColor(R.color.black_GreyScale));
+        infoLbl.setTextColor(getResources().getColor(R.color.black_GreyScale));
+        mediaDataRilascio.setTextColor(getResources().getColor(R.color.black_GreyScale));
+        mediaValutazione.setTextColor(getResources().getColor(R.color.black_GreyScale));
+    }
+
     private void increaseText() {
+        mediaCover.clearColorFilter();
         tramaLbl.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_large));
         mediaTrama.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_large));
         infoLbl.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_large));

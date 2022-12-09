@@ -12,7 +12,7 @@ import com.example.themoviedb.R;
 
 public class SpinnerAdapter extends BaseAdapter {
 
-    private  TextView filtro, tipologia;
+    private TextView filtro, tipologia;
 
     private String[] filtri = {
             "Nessuno",
@@ -51,6 +51,21 @@ public class SpinnerAdapter extends BaseAdapter {
     @Override
     public long getItemId(int i) {
         return 0;
+    }
+
+    public int getIndexOf(String option) {
+        int i = 0;
+
+        while (i < filtri.length) {
+            if (filtri[i] == option) {
+                return i;
+            }
+            else {
+                i = i + 1;
+            }
+        }
+
+        return -1;
     }
 
     public void increaseText() {

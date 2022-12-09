@@ -2,6 +2,8 @@ package com.example.themoviedb.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.provider.MediaStore;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -56,6 +58,8 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MyViewHolder
                 break;
 
             case "Scala di grigi":
+                setDefaultTextSize(holder);
+                setGreyScale(holder);
                 break;
 
             case "Filtro rosso/verde":
@@ -80,6 +84,14 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MyViewHolder
                 context.startActivity(intent);
             }
         });
+    }
+
+    private void setGreyScale(MyViewHolder holder) {
+        ColorMatrix matrix = new ColorMatrix();
+        matrix.setSaturation(0);
+        ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+        holder.mediaImg.setColorFilter(filter);
+        holder.mediaTitle.setTextColor(context.getResources().getColor(R.color.black_GreyScale));
     }
 
     private void increaseText(MediaAdapter.MyViewHolder holder) {

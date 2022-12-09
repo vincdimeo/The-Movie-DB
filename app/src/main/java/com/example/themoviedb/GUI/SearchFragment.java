@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.themoviedb.MainActivity;
@@ -18,6 +19,7 @@ import com.example.themoviedb.R;
 
 public class SearchFragment extends Fragment {
 
+    private TextView cercaTitolo;
     private EditText cercaEditText;
     private Button cercaBtn;
 
@@ -36,6 +38,7 @@ public class SearchFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
+        cercaTitolo = view.findViewById(R.id.cercaTitolo);
         cercaEditText = view.findViewById(R.id.cercaEditText);
         cercaBtn = view.findViewById(R.id.cercaBtn);
 
@@ -54,6 +57,8 @@ public class SearchFragment extends Fragment {
                 break;
 
             case "Scala di grigi":
+                setDefaultTextSize();
+                setGrayScale();
                 break;
 
             case "Filtro rosso/verde":
@@ -79,7 +84,16 @@ public class SearchFragment extends Fragment {
     }
 
     private void setDefaultTextSize() {
+        cercaTitolo.setTextColor(getContext().getResources().getColor(R.color.black));
+        cercaEditText.setTextColor(getContext().getResources().getColor(R.color.black));
+        cercaBtn.setBackgroundColor(getContext().getResources().getColor(R.color.black));
         cercaEditText.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_dimen));
         cercaBtn.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_dimen));
+    }
+
+    private void setGrayScale() {
+        cercaTitolo.setTextColor(getContext().getResources().getColor(R.color.black_GreyScale));
+        cercaEditText.setTextColor(getContext().getResources().getColor(R.color.black_GreyScale));
+        cercaBtn.setBackgroundColor(getContext().getResources().getColor(R.color.black_GreyScale));
     }
 }

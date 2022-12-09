@@ -105,6 +105,8 @@ public class ReleasesFragment extends Fragment {
                 break;
 
             case "Scala di grigi":
+                setDefaultTextSize();
+                setGreyScale();
                 break;
 
             case "Filtro rosso/verde":
@@ -122,6 +124,12 @@ public class ReleasesFragment extends Fragment {
         }
 
         return  view;
+    }
+
+    private void setGreyScale() {
+        popolariLbl.setTextColor(getResources().getColor(R.color.black_GreyScale));
+        serieLbl.setTextColor(getResources().getColor(R.color.black_GreyScale));
+        netflixLbl.setTextColor(getResources().getColor(R.color.black_GreyScale));
     }
 
     private void increaseText() {
