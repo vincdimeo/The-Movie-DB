@@ -2,6 +2,7 @@ package com.example.themoviedb;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 
 import com.example.themoviedb.Classes.APICall;
@@ -74,5 +75,93 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        switch (tema) {
+            case "Nessuno":
+                break;
+
+            case "Scala di grigi":
+                setGreyScaleBar();
+                break;
+
+            case "Filtro rosso/verde":
+                setProtanopiaBar();
+                break;
+
+            case "Filtro verde/rosso":
+                setDaltonismoBar();
+                break;
+
+            case "Filtro blu/giallo":
+                setTritanopiaBar();
+                break;
+
+            case "Testo grande":
+                break;
+        }
+    }
+
+    private void setTritanopiaBar() {
+        int[][] states = new int[][] {
+                new int[] { android.R.attr.state_checked}, // state_checked
+                new int[] { }  //
+        };
+
+        int[] colors = new int[] {
+                getColor(R.color.accentColor2_Tritanopia),
+                getColor(R.color.accentColor3_Tritanopia)
+        };
+
+        ColorStateList myColorList = new ColorStateList(states, colors);
+        bottomNav.setItemIconTintList(myColorList);
+        bottomNav.setItemTextColor(myColorList);
+    }
+
+    private void setDaltonismoBar() {
+        int[][] states = new int[][] {
+                new int[] { android.R.attr.state_checked}, // state_checked
+                new int[] { }  //
+        };
+
+        int[] colors = new int[] {
+                getColor(R.color.accentColor2_Daltonismo),
+                getColor(R.color.accentColor3_Daltonismo)
+        };
+
+        ColorStateList myColorList = new ColorStateList(states, colors);
+        bottomNav.setItemIconTintList(myColorList);
+        bottomNav.setItemTextColor(myColorList);
+    }
+
+    private void setProtanopiaBar() {
+        int[][] states = new int[][] {
+                new int[] { android.R.attr.state_checked}, // state_checked
+                new int[] { }  //
+        };
+
+        int[] colors = new int[] {
+                getColor(R.color.accentColor2_Protanopia),
+                getColor(R.color.accentColor3_Protanopia)
+        };
+
+        ColorStateList myColorList = new ColorStateList(states, colors);
+        bottomNav.setItemIconTintList(myColorList);
+        bottomNav.setItemTextColor(myColorList);
+    }
+
+    private void setGreyScaleBar() {
+        int[][] states = new int[][] {
+                new int[] { android.R.attr.state_checked}, // state_checked
+                new int[] { }  //
+        };
+
+        int[] colors = new int[] {
+                getColor(R.color.accentColor2_GreyScale),
+                getColor(R.color.accentColor3_GreyScale)
+        };
+
+        ColorStateList myColorList = new ColorStateList(states, colors);
+        bottomNav.setItemIconTintList(myColorList);
+        bottomNav.setItemTextColor(myColorList);
     }
 }

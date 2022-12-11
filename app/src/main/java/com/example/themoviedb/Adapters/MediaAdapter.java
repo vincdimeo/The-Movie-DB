@@ -54,21 +54,27 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MyViewHolder
 
         switch (MainActivity.tema) {
             case "Nessuno":
-                setDefaultTextSize(holder);
+                setTemaDefault(holder);
                 break;
 
             case "Scala di grigi":
-                setDefaultTextSize(holder);
-                setGreyScale(holder);
+                setTemaDefault(holder);
+                setTemaGreyScale(holder);
                 break;
 
             case "Filtro rosso/verde":
+                setTemaDefault(holder);
+                setTemaProtanopia(holder);
                 break;
 
             case "Filtro verde/rosso":
+                setTemaDefault(holder);
+                setTemaDaltonismo(holder);
                 break;
 
             case "Filtro blu/giallo":
+                setTemaDefault(holder);
+                setTemaTritanopia(holder);
                 break;
 
             case "Testo grande":
@@ -86,12 +92,24 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MyViewHolder
         });
     }
 
-    private void setGreyScale(MyViewHolder holder) {
+    private void setTemaTritanopia(MyViewHolder holder) {
+        holder.mediaTitle.setTextColor(context.getResources().getColor(R.color.accentColor1_Tritanopia));
+    }
+
+    private void setTemaDaltonismo(MyViewHolder holder) {
+        holder.mediaTitle.setTextColor(context.getResources().getColor(R.color.accentColor1_Daltonismo));
+    }
+
+    private void setTemaProtanopia(MyViewHolder holder) {
+        holder.mediaTitle.setTextColor(context.getResources().getColor(R.color.accentColor1_Protanopia));
+    }
+
+    private void setTemaGreyScale(MyViewHolder holder) {
         ColorMatrix matrix = new ColorMatrix();
         matrix.setSaturation(0);
         ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
         holder.mediaImg.setColorFilter(filter);
-        holder.mediaTitle.setTextColor(context.getResources().getColor(R.color.black_GreyScale));
+        holder.mediaTitle.setTextColor(context.getResources().getColor(R.color.accentColor1_GreyScale));
     }
 
     private void increaseText(MediaAdapter.MyViewHolder holder) {
@@ -100,7 +118,7 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MyViewHolder
         holder.mediaImg.getLayoutParams().height = 650;
     }
 
-    private void setDefaultTextSize(MediaAdapter.MyViewHolder holder) {
+    private void setTemaDefault(MediaAdapter.MyViewHolder holder) {
         holder.mediaTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimension(R.dimen.label_dimen));
         holder.mediaImg.getLayoutParams().width = 300;
         holder.mediaImg.getLayoutParams().height = 450;

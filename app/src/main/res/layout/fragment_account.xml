@@ -7,13 +7,13 @@
     tools:context=".GUI.AccountFragment">
 
     <TextView
-        android:id="@+id/username"
+        android:id="@+id/accountTitolo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="Hey,\nvinc_dimeo"
+        android:text="Account"
         android:textColor="@color/black"
         android:textSize="@dimen/title_dimen"
         android:textStyle="bold"
@@ -29,30 +29,47 @@
         android:src="@drawable/ic_account"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username"
+        app:layout_constraintTop_toBottomOf="@+id/accountTitolo"
         app:tint="@color/purple" />
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="username"
+        android:textColor="@color/black"
+        android:textSize="@dimen/label_dimen"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/accountPh" />
 
     <TextView
         android:id="@+id/impostazioniTitolo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="64dp"
         android:text="Impostazioni schermo"
         android:textColor="@color/black"
         android:textSize="@dimen/label_dimen"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/accountPh" />
+        app:layout_constraintTop_toBottomOf="@+id/username" />
 
-    <Spinner
-        android:id="@+id/spinner"
+    <TextView
+        android:id="@+id/impostazioni"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Protanopia"
+        android:textColor="@color/black"
+        android:textSize="@dimen/label_dimen"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/impostazioniTitolo" />
 
@@ -63,7 +80,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="@color/purple"
         android:text="Logout"
         android:textColor="@color/white"
         android:textSize="@dimen/label_dimen"

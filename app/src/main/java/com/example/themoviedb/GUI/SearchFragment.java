@@ -53,21 +53,27 @@ public class SearchFragment extends Fragment {
 
         switch (MainActivity.tema) {
             case "Nessuno":
-                setDefaultTextSize();
+                setTemaDefault();
                 break;
 
             case "Scala di grigi":
-                setDefaultTextSize();
-                setGrayScale();
+                setTemaDefault();
+                setTemaGreyScale();
                 break;
 
             case "Filtro rosso/verde":
+                setTemaDefault();
+                setTemaProtonopia();
                 break;
 
             case "Filtro verde/rosso":
+                setTemaDefault();
+                setTemaDaltonismo();
                 break;
 
             case "Filtro blu/giallo":
+                setTemaDefault();
+                setTemaTritanopia();
                 break;
 
             case "Testo grande":
@@ -78,22 +84,41 @@ public class SearchFragment extends Fragment {
         return  view;
     }
 
+    private void setTemaTritanopia() {
+        cercaTitolo.setTextColor(getContext().getResources().getColor(R.color.accentColor1_Tritanopia));
+        cercaEditText.setTextColor(getContext().getResources().getColor(R.color.accentColor1_Tritanopia));
+        cercaBtn.setBackgroundColor(getContext().getResources().getColor(R.color.secondaryColor_Tritanopia));
+    }
+
+    private void setTemaDaltonismo() {
+        cercaTitolo.setTextColor(getContext().getResources().getColor(R.color.accentColor1_Daltonismo));
+        cercaEditText.setTextColor(getContext().getResources().getColor(R.color.accentColor1_Daltonismo));
+        cercaBtn.setBackgroundColor(getContext().getResources().getColor(R.color.secondaryColor_Daltonismo));
+    }
+
+    private void setTemaProtonopia() {
+        cercaTitolo.setTextColor(getContext().getResources().getColor(R.color.accentColor1_Protanopia));
+        cercaEditText.setTextColor(getContext().getResources().getColor(R.color.accentColor1_Protanopia));
+        cercaBtn.setBackgroundColor(getContext().getResources().getColor(R.color.secondaryColor_Protanopia));
+    }
+
     private void increaseText() {
         cercaEditText.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_large));
         cercaBtn.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_large));
     }
 
-    private void setDefaultTextSize() {
+    private void setTemaDefault() {
         cercaTitolo.setTextColor(getContext().getResources().getColor(R.color.black));
         cercaEditText.setTextColor(getContext().getResources().getColor(R.color.black));
-        cercaBtn.setBackgroundColor(getContext().getResources().getColor(R.color.black));
+        cercaBtn.setBackgroundColor(getContext().getResources().getColor(R.color.purple));
         cercaEditText.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_dimen));
         cercaBtn.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_dimen));
     }
 
-    private void setGrayScale() {
-        cercaTitolo.setTextColor(getContext().getResources().getColor(R.color.black_GreyScale));
-        cercaEditText.setTextColor(getContext().getResources().getColor(R.color.black_GreyScale));
-        cercaBtn.setBackgroundColor(getContext().getResources().getColor(R.color.black_GreyScale));
+    private void setTemaGreyScale() {
+        cercaTitolo.setTextColor(getContext().getResources().getColor(R.color.accentColor1_GreyScale));
+        cercaEditText.setTextColor(getContext().getResources().getColor(R.color.accentColor1_GreyScale));
+        cercaEditText.getCompoundDrawables()[0].setTint(getResources().getColor(R.color.secondaryColor_GreyScale));
+        cercaBtn.setBackgroundColor(getContext().getResources().getColor(R.color.secondaryColor_GreyScale));
     }
 }

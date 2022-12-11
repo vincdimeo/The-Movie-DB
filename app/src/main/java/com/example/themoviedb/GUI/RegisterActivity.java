@@ -79,27 +79,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        switch (spinnerAdapter.getItem(i)) {
-            case "Nessuno":
-                tema = "Nessuno";
-                break;
-
-            case "Scala di grigi":
-                break;
-
-            case "Filtro rosso/verde":
-                break;
-
-            case "Filtro verde/rosso":
-                break;
-
-            case "Filtro blu/giallo":
-                break;
-
-            case "Testo grande":
-                tema = "Testo grande";
-                break;
-        }
+        tema = spinnerAdapter.getItem(i);
     }
 
     @Override

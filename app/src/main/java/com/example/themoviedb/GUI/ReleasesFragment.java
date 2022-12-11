@@ -30,7 +30,7 @@ public class ReleasesFragment extends Fragment {
 
     private RecyclerView popolariRV, serieRV, netflixRV;
     private MediaAdapter popularAdapter, upcomingAdapter, latestAdapter;
-    private TextView popolariLbl, serieLbl, netflixLbl;
+    private TextView releasesTitolo, popolariLbl, serieLbl, netflixLbl;
 
     public ReleasesFragment() {
         // Required empty public constructor
@@ -76,6 +76,7 @@ public class ReleasesFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_releases, container, false);
 
+        releasesTitolo = view.findViewById(R.id.novitaTitolo);
         popolariLbl = view.findViewById(R.id.popolari);
         popolariRV = view.findViewById(R.id.popolariRV);
         popolariRV.setHasFixedSize(true);
@@ -101,21 +102,27 @@ public class ReleasesFragment extends Fragment {
 
         switch (MainActivity.tema) {
             case "Nessuno":
-                setDefaultTextSize();
+                setTemaDefault();
                 break;
 
             case "Scala di grigi":
-                setDefaultTextSize();
-                setGreyScale();
+                setTemaDefault();
+                setTemaGreyScale();
                 break;
 
             case "Filtro rosso/verde":
+                setTemaDefault();
+                setTemaProtanopia();
                 break;
 
             case "Filtro verde/rosso":
+                setTemaDefault();
+                setTemaDaltonismo();
                 break;
 
             case "Filtro blu/giallo":
+                setTemaDefault();
+                setTemaTritanopia();
                 break;
 
             case "Testo grande":
@@ -126,10 +133,32 @@ public class ReleasesFragment extends Fragment {
         return  view;
     }
 
-    private void setGreyScale() {
-        popolariLbl.setTextColor(getResources().getColor(R.color.black_GreyScale));
-        serieLbl.setTextColor(getResources().getColor(R.color.black_GreyScale));
-        netflixLbl.setTextColor(getResources().getColor(R.color.black_GreyScale));
+    private void setTemaTritanopia() {
+        releasesTitolo.setTextColor(getResources().getColor(R.color.accentColor1_Tritanopia));
+        popolariLbl.setTextColor(getResources().getColor(R.color.accentColor1_Tritanopia));
+        serieLbl.setTextColor(getResources().getColor(R.color.accentColor1_Tritanopia));
+        netflixLbl.setTextColor(getResources().getColor(R.color.accentColor1_Tritanopia));
+    }
+
+    private void setTemaDaltonismo() {
+        releasesTitolo.setTextColor(getResources().getColor(R.color.accentColor1_Daltonismo));
+        popolariLbl.setTextColor(getResources().getColor(R.color.accentColor1_Daltonismo));
+        serieLbl.setTextColor(getResources().getColor(R.color.accentColor1_Daltonismo));
+        netflixLbl.setTextColor(getResources().getColor(R.color.accentColor1_Daltonismo));
+    }
+
+    private void setTemaProtanopia() {
+        releasesTitolo.setTextColor(getResources().getColor(R.color.accentColor1_Protanopia));
+        popolariLbl.setTextColor(getResources().getColor(R.color.accentColor1_Protanopia));
+        serieLbl.setTextColor(getResources().getColor(R.color.accentColor1_Protanopia));
+        netflixLbl.setTextColor(getResources().getColor(R.color.accentColor1_Protanopia));
+    }
+
+    private void setTemaGreyScale() {
+        releasesTitolo.setTextColor(getResources().getColor(R.color.accentColor1_GreyScale));
+        popolariLbl.setTextColor(getResources().getColor(R.color.accentColor1_GreyScale));
+        serieLbl.setTextColor(getResources().getColor(R.color.accentColor1_GreyScale));
+        netflixLbl.setTextColor(getResources().getColor(R.color.accentColor1_GreyScale));
     }
 
     private void increaseText() {
@@ -138,7 +167,7 @@ public class ReleasesFragment extends Fragment {
         netflixLbl.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_large));
     }
 
-    private void setDefaultTextSize() {
+    private void setTemaDefault() {
         popolariLbl.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_dimen));
         serieLbl.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_dimen));
         netflixLbl.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_dimen));

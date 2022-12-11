@@ -1,9 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple">#6447C2</color>
+    <!-- Default color -->
+    <color name="purple">#4454E5</color>
     <color name="black">#2D2D2A</color>
     <color name="white">#FFFFFF</color>
     <color name="grey">#9C9C9C</color>
+    <color name="pink">#FD233A</color>
 
-    <color name="black_GreyScale">#000000</color>
+    <!-- Scala di grigi -->
+    <color name="secondaryColor_GreyScale">#000000</color>
+    <color name="accentColor1_GreyScale">#2D2D2A</color>
+    <color name="accentColor2_GreyScale">#000000</color>
+    <color name="accentColor3_GreyScale">#8B8E8B</color>
+
+    <!-- Protanopia - Filtro rosso/verde -->
+    <color name="secondaryColor_Protanopia">#4454E5</color>
+    <color name="accentColor1_Protanopia">#2D2D2A</color>
+    <color name="accentColor2_Protanopia">#0019FF</color>
+    <color name="accentColor3_Protanopia">#8B8E8B</color>
+
+    <!-- Daltonismo - Filtro verde/rosso -->
+    <color name="secondaryColor_Daltonismo">#4454E5</color>
+    <color name="accentColor1_Daltonismo">#2D2D2A</color>
+    <color name="accentColor2_Daltonismo">#5200FF</color>
+    <color name="accentColor3_Daltonismo">#8B8E8B</color>
+
+    <!-- Tritanopia - Filtro blu/giallo -->
+    <color name="secondaryColor_Tritanopia">#000000</color>
+    <color name="accentColor1_Tritanopia">#2D2D2A</color>
+    <color name="accentColor2_Tritanopia">#FD233A</color>
+    <color name="accentColor3_Tritanopia">#8B8E8B</color>
 </resources>

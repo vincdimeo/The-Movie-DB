@@ -22,13 +22,11 @@ import com.example.themoviedb.MainActivity;
 import com.example.themoviedb.R;
 
 
-public class AccountFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+public class AccountFragment extends Fragment {
 
-    private Spinner impostazioniSchermo;
-    private SpinnerAdapter spinnerAdapter;
     private Button logoutBtn;
     private ImageView accountFoto;
-    private TextView username, impostazioniLbl;
+    private TextView accountTitolo, username, impostazioniLbl, impostazioniSchermo;
 
     public AccountFragment() {
         // Required empty public constructor
@@ -45,18 +43,13 @@ public class AccountFragment extends Fragment implements AdapterView.OnItemSelec
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_account, container, false);
 
+        accountTitolo = view.findViewById(R.id.accountTitolo);
+
         username = view.findViewById(R.id.username);
-        username.setText("Hey,\n" +MainActivity.utente.getUsername());
+        username.setText("@" + MainActivity.utente.getUsername());
 
-        impostazioniSchermo = view.findViewById(R.id.spinner);
-        impostazioniSchermo.setOnItemSelectedListener(this);
-
-        spinnerAdapter = new SpinnerAdapter(getContext());
-        impostazioniSchermo.setAdapter(spinnerAdapter);
-
-        if (MainActivity.tema != "") {
-            impostazioniSchermo.setSelection(spinnerAdapter.getIndexOf(MainActivity.tema));
-        }
+        impostazioniSchermo = view.findViewById(R.id.impostazioni);
+        impostazioniSchermo.setText(MainActivity.tema);
 
         accountFoto = view.findViewById(R.id.accountPh);
 
@@ -70,68 +63,80 @@ public class AccountFragment extends Fragment implements AdapterView.OnItemSelec
             }
         });
 
-        return  view;
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        switch (spinnerAdapter.getItem(i)) {
+        switch (MainActivity.tema) {
             case "Nessuno":
-                MainActivity.tema = "Nessuno";
-                setDefaultTextSize();
-                spinnerAdapter.setDefaultTextSize();
+                setTemaDefault();
                 break;
 
             case "Scala di grigi":
-                MainActivity.tema = "Scala di grigi";
-                setGreyScale();
-                spinnerAdapter.setDefaultTextSize();
+                setTemaDefault();
+                setTemaGreyScale();
                 break;
 
             case "Filtro rosso/verde":
+                setTemaDefault();
+                setTemaProtanopia();
                 break;
 
             case "Filtro verde/rosso":
+                setTemaDefault();
+                setTemaDaltonismo();
                 break;
 
             case "Filtro blu/giallo":
+                setTemaDefault();
+                setTemaTritanopia();
                 break;
 
             case "Testo grande":
-                MainActivity.tema = "Testo grande";
                 increaseText();
-                spinnerAdapter.increaseText();
                 break;
         }
 
-        saveTheme(spinnerAdapter.getItem(i));
+        return  view;
     }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
+    private void setTemaTritanopia() {
+        accountTitolo.setTextColor(getResources().getColor(R.color.accentColor1_Tritanopia));
+        username.setTextColor(getResources().getColor(R.color.accentColor1_Tritanopia));
+        impostazioniLbl.setTextColor(getResources().getColor(R.color.accentColor1_Tritanopia));
+        logoutBtn.setBackgroundColor(getResources().getColor(R.color.secondaryColor_Tritanopia));
+        accountFoto.setColorFilter(getResources().getColor(R.color.accentColor3_Tritanopia));
     }
 
-    private void saveTheme(String tema) {
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("Utente", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("Tema", tema);
-        editor.commit();
+    private void setTemaDaltonismo() {
+        accountTitolo.setTextColor(getResources().getColor(R.color.accentColor1_Daltonismo));
+        username.setTextColor(getResources().getColor(R.color.accentColor1_Daltonismo));
+        impostazioniLbl.setTextColor(getResources().getColor(R.color.accentColor1_Daltonismo));
+        logoutBtn.setBackgroundColor(getResources().getColor(R.color.secondaryColor_Daltonismo));
+        accountFoto.setColorFilter(getResources().getColor(R.color.accentColor3_Daltonismo));
     }
 
-    private void setGreyScale() {
-        username.setTextColor(getResources().getColor(R.color.black_GreyScale));
-        impostazioniLbl.setTextColor(getResources().getColor(R.color.black_GreyScale));
-        logoutBtn.setBackgroundColor(getResources().getColor(R.color.black_GreyScale));
-        accountFoto.setColorFilter(getResources().getColor(R.color.grey));
+    private void setTemaProtanopia() {
+        accountTitolo.setTextColor(getResources().getColor(R.color.accentColor1_Protanopia));
+        username.setTextColor(getResources().getColor(R.color.accentColor1_Protanopia));
+        impostazioniLbl.setTextColor(getResources().getColor(R.color.accentColor1_Protanopia));
+        logoutBtn.setBackgroundColor(getResources().getColor(R.color.secondaryColor_Protanopia));
+        accountFoto.setColorFilter(getResources().getColor(R.color.accentColor3_Protanopia));
+    }
+
+    private void setTemaGreyScale() {
+        accountTitolo.setTextColor(getResources().getColor(R.color.accentColor1_GreyScale));
+        username.setTextColor(getResources().getColor(R.color.accentColor1_GreyScale));
+        impostazioniLbl.setTextColor(getResources().getColor(R.color.accentColor1_GreyScale));
+        logoutBtn.setBackgroundColor(getResources().getColor(R.color.secondaryColor_GreyScale));
+        accountFoto.setColorFilter(getResources().getColor(R.color.accentColor3_GreyScale));
     }
 
     private void increaseText() {
+        username.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_large));
         impostazioniLbl.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_large));
+        impostazioniSchermo.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_large));
         logoutBtn.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_large));
     }
 
-    private void setDefaultTextSize() {
+    private void setTemaDefault() {
+        accountTitolo.setTextColor(getResources().getColor(R.color.black));
         username.setTextColor(getResources().getColor(R.color.black));
         impostazioniLbl.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_dimen));
         logoutBtn.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_dimen));
