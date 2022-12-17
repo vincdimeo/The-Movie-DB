@@ -1,8 +1,5 @@
 package com.example.themoviedb.GUI;
 
-import static android.content.Context.MODE_PRIVATE;
-
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,13 +8,10 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.themoviedb.Adapters.SpinnerAdapter;
 import com.example.themoviedb.MainActivity;
 import com.example.themoviedb.R;
 
@@ -55,7 +49,7 @@ public class AccountFragment extends Fragment {
 
         impostazioniLbl = view.findViewById(R.id.impostazioniTitolo);
 
-        logoutBtn = view.findViewById(R.id.logoutBtn);
+        logoutBtn = view.findViewById(R.id.mostraBtn);
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -35,13 +35,12 @@ public class APICall {
                     if(!response.isSuccessful()) {
                         Toast.makeText(context, "Error!", Toast.LENGTH_SHORT).show();
                     }
-                    listener. onFetchData(response.body().getMovies(), response.message());
+                    listener.onFetchData(response.body().getMovies(), response.message());
                 }
 
                 @Override
                 public void onFailure(Call<MoviesApiResponse> call, Throwable t) {
                     listener.onError("Request Failed!");
-                    System.out.println("Mannacc a maronn *****************************");
                 }
             });
         } catch (Exception e) {
@@ -66,7 +65,6 @@ public class APICall {
                 @Override
                 public void onFailure(Call<MoviesApiResponse> call, Throwable t) {
                     listener.onError("Request Failed!");
-                    System.out.println("Mannacc a maronn *****************************");
                 }
             });
         } catch (Exception e) {

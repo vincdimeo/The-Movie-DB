@@ -2,14 +2,12 @@ package com.example.themoviedb.GUI;
 
 import static androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG;
 import static androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_WEAK;
-import static androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL;
 
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import java.util.concurrent.Executor;
-import static androidx.biometric.BiometricManager.Authenticators.*;
 
 import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
@@ -17,7 +15,6 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
-import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,7 +57,7 @@ public class LoginFragment extends Fragment {
         oppureLbl = view.findViewById(R.id.oppureLbl);
         ricordaUsername = view.findViewById(R.id.ricordaUsername);
         biometricBtn = view.findViewById(R.id.fingerprint);
-        loginBtn = view.findViewById(R.id.logoutBtn);
+        loginBtn = view.findViewById(R.id.mostraBtn);
 
         checkBioMetricSupported();
 

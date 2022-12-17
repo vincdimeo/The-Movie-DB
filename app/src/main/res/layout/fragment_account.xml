@@ -74,7 +74,7 @@
         app:layout_constraintTop_toBottomOf="@+id/impostazioniTitolo" />
 
     <Button
-        android:id="@+id/logoutBtn"
+        android:id="@+id/mostraBtn"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginStart="16dp"

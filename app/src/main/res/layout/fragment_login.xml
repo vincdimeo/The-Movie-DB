@@ -87,7 +87,7 @@
             app:layout_constraintTop_toBottomOf="@+id/password" />
 
         <Button
-            android:id="@+id/logoutBtn"
+            android:id="@+id/mostraBtn"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_marginStart="16dp"
@@ -112,7 +112,7 @@
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/logoutBtn" />
+            app:layout_constraintTop_toBottomOf="@+id/mostraBtn" />
 
         <ImageView
             android:id="@+id/fingerprint"
