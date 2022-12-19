@@ -60,7 +60,6 @@ public class ReleasesFragment extends Fragment {
                     upcomingAdapter = new MediaAdapter((ArrayList<Media>) list, getContext());
                     serieRV.setAdapter(upcomingAdapter);
                 }
-
             }
         }
 

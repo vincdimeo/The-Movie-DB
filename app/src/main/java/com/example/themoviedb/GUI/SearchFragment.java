@@ -118,7 +118,7 @@ public class SearchFragment extends Fragment {
     private void setTemaGreyScale() {
         cercaTitolo.setTextColor(getContext().getResources().getColor(R.color.accentColor1_GreyScale));
         cercaEditText.setTextColor(getContext().getResources().getColor(R.color.accentColor1_GreyScale));
-        cercaEditText.getCompoundDrawables()[0].setTint(getResources().getColor(R.color.secondaryColor_GreyScale));
+        //cercaEditText.getCompoundDrawables()[0].setTint(getResources().getColor(R.color.secondaryColor_GreyScale));
         cercaBtn.setBackgroundColor(getContext().getResources().getColor(R.color.secondaryColor_GreyScale));
     }
 }

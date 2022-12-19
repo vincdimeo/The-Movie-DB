@@ -72,6 +72,30 @@ public class APICall {
         }
     }
 
+    public void getSearchResults(OnFetchDataListener listener, String language, String search) {
+        CallMoviesApi callMoviesApi = retrofit.create(CallMoviesApi.class);
+        Call<MoviesApiResponse> call = callMoviesApi.callSearch(api_key, language, search);
+
+        try {
+            call.enqueue(new Callback<MoviesApiResponse>() {
+                @Override
+                public void onResponse(Call<MoviesApiResponse> call, Response<MoviesApiResponse> response) {
+                    if(!response.isSuccessful()) {
+                        Toast.makeText(context, "Error!", Toast.LENGTH_SHORT).show();
+                    }
+                    listener.onFetchData(response.body().getMovies(), response.message());
+                }
+
+                @Override
+                public void onFailure(Call<MoviesApiResponse> call, Throwable t) {
+                    listener.onError("Request Failed!");
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public APICall(Context context) {
         this.context = context;
         api_key = context.getString(R.string.api_key);
@@ -88,6 +112,13 @@ public class APICall {
         Call<MoviesApiResponse> callUpcoming(
                 @Query("api_key") String api_key,
                 @Query("language") String language
+        );
+
+        @GET("search")
+        Call<MoviesApiResponse> callSearch(
+                @Query("api_key") String api_key,
+                @Query("language") String language,
+                @Query("query") String search
         );
     }
 }
