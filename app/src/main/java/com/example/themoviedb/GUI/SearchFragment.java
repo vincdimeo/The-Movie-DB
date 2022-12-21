@@ -1,5 +1,6 @@
 package com.example.themoviedb.GUI;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.themoviedb.MainActivity;
 import com.example.themoviedb.R;
+import com.example.themoviedb.ResultsActivity;
 
 
 public class SearchFragment extends Fragment {
@@ -47,6 +49,11 @@ public class SearchFragment extends Fragment {
             public void onClick(View view) {
                 if (cercaEditText.getText().toString().isEmpty()) {
                     Toast.makeText(getContext(), "Il campo di ricerca è vuoto", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Intent intent = new Intent(getContext(), ResultsActivity.class);
+                    intent.putExtra("query", cercaEditText.getText().toString());
+                    startActivity(intent);
                 }
             }
         });

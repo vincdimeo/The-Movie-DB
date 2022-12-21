@@ -73,6 +73,11 @@ public class APICall {
     }
 
     public void getSearchResults(OnFetchDataListener listener, String language, String search) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.themoviedb.org/3/search/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
         CallMoviesApi callMoviesApi = retrofit.create(CallMoviesApi.class);
         Call<MoviesApiResponse> call = callMoviesApi.callSearch(api_key, language, search);
 
@@ -114,7 +119,7 @@ public class APICall {
                 @Query("language") String language
         );
 
-        @GET("search")
+        @GET("multi")
         Call<MoviesApiResponse> callSearch(
                 @Query("api_key") String api_key,
                 @Query("language") String language,

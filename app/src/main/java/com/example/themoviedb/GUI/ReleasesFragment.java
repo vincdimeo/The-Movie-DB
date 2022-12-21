@@ -3,7 +3,6 @@ package com.example.themoviedb.GUI;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -77,7 +76,7 @@ public class ReleasesFragment extends Fragment {
 
         releasesTitolo = view.findViewById(R.id.novitaTitolo);
         popolariLbl = view.findViewById(R.id.popolari);
-        popolariRV = view.findViewById(R.id.popolariRV);
+        popolariRV = view.findViewById(R.id.resultsRV);
         popolariRV.setHasFixedSize(true);
         serieLbl = view.findViewById(R.id.serieTV);
         serieRV = view.findViewById(R.id.serieRV);
