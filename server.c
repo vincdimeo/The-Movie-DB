@@ -15,7 +15,7 @@
 #define BUFFER_SZ 2048
 
 static _Atomic unsigned int cli_count = 0;
-//static int uid = 10;
+static int uid = 10;
 
 typedef struct {
   char username[50];
@@ -181,8 +181,8 @@ void *handle_client(void *arg)
         printf("Didn't enter the name.\n");
         leave_flag = 1;
     } else{
-        strcpy(cli->user->username, user->username);
-        sprintf(buff_out, "%s has joined\n", cli->user->username);
+        strcpy(cli->user.username, user.username);
+        sprintf(buff_out, "%s has joined\n", cli->user.username);
         printf("%s", buff_out);
         send_message(buff_out, cli->uid);
     }
@@ -200,10 +200,10 @@ void *handle_client(void *arg)
                 send_message(buff_out, cli->uid);
 
                 str_trim_lf(buff_out, strlen(buff_out));
-                printf("%s -> %s\n", buff_out, cli->user->username);
+                printf("%s -> %s\n", buff_out, cli->user.username);
             }
         } else if (receive == 0 || strcmp(buff_out, "exit") == 0){
-            sprintf(buff_out, "\n%s has left\n", cli->user->username);
+            sprintf(buff_out, "\n%s has left\n", cli->user.username);
             printf("%s", buff_out);
             send_message(buff_out, cli->uid);
             leave_flag = 1;
