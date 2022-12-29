@@ -15,7 +15,7 @@
 #define BUFFER_SZ 2048
 
 static _Atomic unsigned int cli_count = 0;
-static int uid = 10;
+//static int uid = 10;
 
 typedef struct {
   char username[50];
@@ -48,18 +48,18 @@ bool registration(User *u1, MYSQL *conn, MYSQL_RES *res, MYSQL_ROW row) {
 
 MYSQL_RES *send_query_insert(MYSQL *conn, MYSQL_RES *res, MYSQL_ROW row, User *u1) {
     char query_insert[1000];
-                            printf("Ok send query user: %s, %s, %s \n", u1->username, u1->password, u1->accessibility);
+    printf("Ok send query user: %s, %s, %s \n", u1->username, u1->password, u1->accessibility);
     sprintf(query_insert, "insert into user(username, password, accessibility) values ('%s', '%s', '%s')", u1->username, u1->password, u1->accessibility);
 	printf("Dopo insert");
 
     if (mysql_query(conn, query_insert)) {
-                            printf("query insert if ok\n");
+        printf("query insert if ok\n");
         fprintf(stderr, "%s\n", mysql_error(conn));
         exit(1);
     }
-                        printf("Ok query\n");
+    printf("Ok query\n");
     res = mysql_use_result(conn);
-                        printf("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA res\n");
+    printf("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA res\n");
     return res;
 }
 
@@ -168,20 +168,21 @@ void sendNumberClient(int count){
 void *handle_client(void *arg)
 {
     char buff_out[BUFFER_SZ];
-    char name[32];
+    User* user = (User *) malloc(sizeof(User));
     int leave_flag = 0;
+    bool flag_login = false;
 
     cli_count++;
     client_t *cli = (client_t *)arg;
-    sendNumberClient(cli_count);
+    //sendNumberClient(cli_count);
 
     // Name
-    if(recv(cli->sockfd, name, 32, 0) <= 0 || strlen(name) <  2 || strlen(name) >= 32-1){
+    if(recv(cli->sockfd, user, 32, 0) <= 0){
         printf("Didn't enter the name.\n");
         leave_flag = 1;
     } else{
-        strcpy(cli->name, name);
-        sprintf(buff_out, "%s has joined\n", cli->name);
+        strcpy(cli->user->username, user->username);
+        sprintf(buff_out, "%s has joined\n", cli->user->username);
         printf("%s", buff_out);
         send_message(buff_out, cli->uid);
     }
@@ -195,14 +196,14 @@ void *handle_client(void *arg)
 
         int receive = recv(cli->sockfd, buff_out, BUFFER_SZ, 0);
         if (receive > 0){
-            if(strlen(buff_out) > 0){
+            if(strlen(buff_out) > 0) {
                 send_message(buff_out, cli->uid);
 
                 str_trim_lf(buff_out, strlen(buff_out));
-                printf("%s -> %s\n", buff_out, cli->name);
+                printf("%s -> %s\n", buff_out, cli->user->username);
             }
         } else if (receive == 0 || strcmp(buff_out, "exit") == 0){
-            sprintf(buff_out, "\n%s has left\n", cli->name);
+            sprintf(buff_out, "\n%s has left\n", cli->user->username);
             printf("%s", buff_out);
             send_message(buff_out, cli->uid);
             leave_flag = 1;
@@ -226,7 +227,7 @@ void *handle_client(void *arg)
 
 int main(int argc, char **argv)
 {
-  MYSQL *conn;
+    MYSQL *conn;
     MYSQL_RES *res;
     MYSQL_ROW row;
     
