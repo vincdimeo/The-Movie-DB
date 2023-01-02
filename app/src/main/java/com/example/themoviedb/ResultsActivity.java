@@ -1,6 +1,7 @@
 package com.example.themoviedb;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -39,10 +40,15 @@ public class ResultsActivity extends AppCompatActivity {
         resultsRV = findViewById(R.id.resultsRV);
         backBtn = findViewById(R.id.backBtn);
 
+
+        resultsRV.setHasFixedSize(true);
+        resultsRV.setLayoutManager(new LinearLayoutManager(this));
+
         querySearch.setText(query);
 
         APICall api = new APICall(this);
         api.getSearchResults(listener, "it-IT", query);
+
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,8 +66,11 @@ public class ResultsActivity extends AppCompatActivity {
             }
             else {
                 if(resultAdapter == null){
+                    System.out.println("***" + list.get(0).getTitle());
                     resultAdapter = new ResultAdapter((ArrayList<Media>) list, ResultsActivity.this);
                     resultsRV.setAdapter(resultAdapter);
+                    System.out.println("***" + resultsRV.getAdapter().toString());
+
                 }
             }
         }

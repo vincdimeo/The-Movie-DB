@@ -80,6 +80,7 @@ public class APICall {
 
         CallMoviesApi callMoviesApi = retrofit.create(CallMoviesApi.class);
         Call<MoviesApiResponse> call = callMoviesApi.callSearch(api_key, language, search);
+        System.out.println("********" + search);
 
         try {
             call.enqueue(new Callback<MoviesApiResponse>() {
@@ -119,7 +120,7 @@ public class APICall {
                 @Query("language") String language
         );
 
-        @GET("multi")
+        @GET("movie")
         Call<MoviesApiResponse> callSearch(
                 @Query("api_key") String api_key,
                 @Query("language") String language,
