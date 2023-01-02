@@ -1,21 +1,26 @@
-package com.example.themoviedb;
+package com.example.themoviedb.GUI;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.themoviedb.Adapters.MediaAdapter;
 import com.example.themoviedb.Adapters.ResultAdapter;
 import com.example.themoviedb.Classes.APICall;
 import com.example.themoviedb.Classes.Media;
 import com.example.themoviedb.Classes.MoviesApiResponse;
 import com.example.themoviedb.Classes.OnFetchDataListener;
+import com.example.themoviedb.MainActivity;
+import com.example.themoviedb.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -49,6 +54,34 @@ public class ResultsActivity extends AppCompatActivity {
         APICall api = new APICall(this);
         api.getSearchResults(listener, "it-IT", query);
 
+        switch (MainActivity.tema) {
+            case "Nessuno":
+                setTemaDefault();
+                break;
+
+            case "Scala di grigi":
+                setTemaDefault();
+                setTemaGreyScale();
+                break;
+
+            case "Filtro rosso/verde":
+                setTemaDefault();
+                setTemaProtanopia();
+                break;
+
+            case "Filtro verde/rosso":
+                setTemaDefault();
+                setTemaDaltonismo();
+                break;
+
+            case "Filtro blu/giallo":
+                setTemaDefault();
+                setTemaTritanopia();
+                break;
+
+            case "Testo grande":
+                break;
+        }
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,4 +113,26 @@ public class ResultsActivity extends AppCompatActivity {
             Toast.makeText(ResultsActivity.this, "An Error Occurred!", Toast.LENGTH_SHORT).show();
         }
     };
+
+    private void setTemaTritanopia() {
+        backBtn.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.secondaryColor_Tritanopia)));
+        backBtn.setColorFilter(getResources().getColor(R.color.white));
+    }
+
+    private void setTemaDaltonismo() {
+        backBtn.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.secondaryColor_Daltonismo)));
+    }
+
+    private void setTemaProtanopia() {
+        backBtn.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.secondaryColor_Protanopia)));
+    }
+
+    private void setTemaGreyScale() {
+        backBtn.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.black)));
+        backBtn.setColorFilter(getResources().getColor(R.color.white));
+    }
+
+    private void setTemaDefault() {
+        querySearch.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.title_dimen));
+    }
 }

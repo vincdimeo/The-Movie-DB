@@ -28,6 +28,50 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.MyViewHold
     private Context context;
     private ArrayList<Media> results;
 
+    private static final float[] PROTANOPIA = {
+            0.567f,0.433f,0,0,0,
+            0.558f,0.442f,0,0,0,
+            0,0.242f,0.758f,0,0,
+            0,0,0,1f,0,
+            0,0,0,0
+    };
+
+    private static final float[] TRITANOPIA = {
+            0.95f,0.05f,0,0,0,
+            0,0.433f,0.567f,0,0,
+            0,0.475f,0.525f,0,0,
+            0,0,0,1,0,
+            0,0,0,0,1
+    };
+
+    private static final float[] ACROMATOPSIA = {
+            0.299f,0.587f,0.114f,0,0,
+            0.299f,0.587f,0.114f,0,0,
+            0.299f,0.587f,0.114f,0,0,
+            0,0,0,1,0,
+            0,0,0,0,1
+    };
+
+    private static final float[] DEUTERANOPIA = {
+            0.625f,0.375f,0,0,0,
+            0.7f,0.3f,0,0,0,
+            0,0.3f,0.7f,0,0,
+            0,0,0,1,0,
+            0,0,0,0,1
+    };
+
+
+
+    //'Protanopia':[0.567,0.433,0,0,0, 0.558,0.442,0,0,0, 0,0.242,0.758,0,0, 0,0,0,1,0, 0,0,0,0,
+    //'Protanomaly':[0.817,0.183,0,0,0, 0.333,0.667,0,0,0, 0,0.125,0.875,0,0, 0,0,0,1,0, 0,0,0,0,1],
+    //'Deuteranopia':[0.625,0.375,0,0,0, 0.7,0.3,0,0,0, 0,0.3,0.7,0,0, 0,0,0,1,0, 0,0,0,0,1],
+    //'Deuteranomaly':[0.8,0.2,0,0,0, 0.258,0.742,0,0,0, 0,0.142,0.858,0,0, 0,0,0,1,0, 0,0,0,0,1],
+    //'Tritanopia':[0.95,0.05,0,0,0, 0,0.433,0.567,0,0, 0,0.475,0.525,0,0, 0,0,0,1,0, 0,0,0,0,1],
+    //'Tritanomaly':[0.967,0.033,0,0,0, 0,0.733,0.267,0,0, 0,0.183,0.817,0,0, 0,0,0,1,0, 0,0,0,0,1],
+    //'Achromatopsia':[0.299,0.587,0.114,0,0, 0.299,0.587,0.114,0,0, 0.299,0.587,0.114,0,0, 0,0,0,1,0, 0,0,0,0,1],
+    //'Achromatomaly':[0.618,0.320,0.062,0,0, 0.163,0.775,0.062,0,0, 0.163,0.320,0.516,0,0,0,0,0,1,0,0,0,0,0]}[v]);
+
+
     public ResultAdapter(ArrayList<Media> results, Context context) {
         this.context = context;
         this.results = results;
@@ -93,27 +137,32 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.MyViewHold
     }
 
     private void setTemaTritanopia(MyViewHolder holder) {
+        ColorMatrixColorFilter filter = new ColorMatrixColorFilter(TRITANOPIA);
+        holder.mediaImg.setColorFilter(filter);
         holder.mediaTitle.setTextColor(context.getResources().getColor(R.color.secondaryColor_Tritanopia));
         holder.mediaTrama.setTextColor(context.getResources().getColor(R.color.accentColor3_Tritanopia));
         holder.mostraBtn.setTextColor(context.getResources().getColor(R.color.secondaryColor_Tritanopia));
     }
 
     private void setTemaDaltonismo(MyViewHolder holder) {
+        ColorMatrixColorFilter filter = new ColorMatrixColorFilter(DEUTERANOPIA);
+        holder.mediaImg.setColorFilter(filter);
         holder.mediaTitle.setTextColor(context.getResources().getColor(R.color.accentColor1_Daltonismo));
         holder.mediaTrama.setTextColor(context.getResources().getColor(R.color.accentColor3_Daltonismo));
         holder.mostraBtn.setTextColor(context.getResources().getColor(R.color.secondaryColor_Daltonismo));
     }
 
     private void setTemaProtanopia(MyViewHolder holder) {
+        ColorMatrixColorFilter filter = new ColorMatrixColorFilter(PROTANOPIA);
+        holder.mediaImg.setColorFilter(filter);
         holder.mediaTitle.setTextColor(context.getResources().getColor(R.color.accentColor1_Protanopia));
         holder.mediaTrama.setTextColor(context.getResources().getColor(R.color.accentColor3_Protanopia));
         holder.mostraBtn.setTextColor(context.getResources().getColor(R.color.secondaryColor_Protanopia));
     }
 
     private void setTemaGreyScale(MyViewHolder holder) {
-        ColorMatrix matrix = new ColorMatrix();
-        matrix.setSaturation(0);
-        ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+        ColorMatrixColorFilter filter = new ColorMatrixColorFilter(ACROMATOPSIA);
+        holder.mediaImg.setColorFilter(filter);
         holder.mediaImg.setColorFilter(filter);
         holder.mediaTitle.setTextColor(context.getResources().getColor(R.color.accentColor2_GreyScale));
         holder.mediaTrama.setTextColor(context.getResources().getColor(R.color.accentColor1_GreyScale));
@@ -144,8 +193,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.MyViewHold
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         public ImageView mediaImg;
-        public TextView mediaTitle, mediaTrama;
-        public Button mostraBtn;
+        public TextView mediaTitle, mediaTrama, mostraBtn;
 
         public MyViewHolder(View itemView) {
             super(itemView);

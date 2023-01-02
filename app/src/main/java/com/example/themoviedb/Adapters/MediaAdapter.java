@@ -28,6 +28,38 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MyViewHolder
     private Context context;
     private ArrayList<Media> listMedia;
 
+    private static final float[] PROTANOPIA = {
+            0.567f,0.433f,0,0,0,
+            0.558f,0.442f,0,0,0,
+            0,0.242f,0.758f,0,0,
+            0,0,0,1f,0,
+            0,0,0,0
+    };
+
+    private static final float[] TRITANOPIA = {
+            0.95f,0.05f,0,0,0,
+            0,0.433f,0.567f,0,0,
+            0,0.475f,0.525f,0,0,
+            0,0,0,1,0,
+            0,0,0,0,1
+    };
+
+    private static final float[] ACROMATOPSIA = {
+            0.299f,0.587f,0.114f,0,0,
+            0.299f,0.587f,0.114f,0,0,
+            0.299f,0.587f,0.114f,0,0,
+            0,0,0,1,0,
+            0,0,0,0,1
+    };
+
+    private static final float[] DEUTERANOPIA = {
+            0.625f,0.375f,0,0,0,
+            0.7f,0.3f,0,0,0,
+            0,0.3f,0.7f,0,0,
+            0,0,0,1,0,
+            0,0,0,0,1
+    };
+
     public MediaAdapter(ArrayList<Media> listMedia, Context context) {
         this.context = context;
         this.listMedia = listMedia;
@@ -93,21 +125,26 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MyViewHolder
     }
 
     private void setTemaTritanopia(MyViewHolder holder) {
+        ColorMatrixColorFilter filter = new ColorMatrixColorFilter(TRITANOPIA);
+        holder.mediaImg.setColorFilter(filter);
         holder.mediaTitle.setTextColor(context.getResources().getColor(R.color.accentColor1_Tritanopia));
     }
 
     private void setTemaDaltonismo(MyViewHolder holder) {
+        ColorMatrixColorFilter filter = new ColorMatrixColorFilter(DEUTERANOPIA);
+        holder.mediaImg.setColorFilter(filter);
         holder.mediaTitle.setTextColor(context.getResources().getColor(R.color.accentColor1_Daltonismo));
     }
 
     private void setTemaProtanopia(MyViewHolder holder) {
+        ColorMatrixColorFilter filter = new ColorMatrixColorFilter(PROTANOPIA);
+        holder.mediaImg.setColorFilter(filter);
         holder.mediaTitle.setTextColor(context.getResources().getColor(R.color.accentColor1_Protanopia));
     }
 
     private void setTemaGreyScale(MyViewHolder holder) {
-        ColorMatrix matrix = new ColorMatrix();
-        matrix.setSaturation(0);
-        ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+        ColorMatrixColorFilter filter = new ColorMatrixColorFilter(ACROMATOPSIA);
+        holder.mediaImg.setColorFilter(filter);
         holder.mediaImg.setColorFilter(filter);
         holder.mediaTitle.setTextColor(context.getResources().getColor(R.color.accentColor1_GreyScale));
     }

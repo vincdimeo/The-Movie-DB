@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import com.example.themoviedb.MainActivity;
 import com.example.themoviedb.R;
-import com.example.themoviedb.ResultsActivity;
 
 
 public class SearchFragment extends Fragment {

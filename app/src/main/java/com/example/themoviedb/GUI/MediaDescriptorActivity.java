@@ -24,6 +24,38 @@ public class MediaDescriptorActivity extends AppCompatActivity {
     private ImageView mediaCover, dataRilascioIcon, valutazioneIcon;
     private TextView mediaTitolo, tramaLbl, mediaTrama, infoLbl, mediaDataRilascio, mediaValutazione;
 
+    private static final float[] PROTANOPIA = {
+            0.567f,0.433f,0,0,0,
+            0.558f,0.442f,0,0,0,
+            0,0.242f,0.758f,0,0,
+            0,0,0,1f,0,
+            0,0,0,0
+    };
+
+    private static final float[] TRITANOPIA = {
+            0.95f,0.05f,0,0,0,
+            0,0.433f,0.567f,0,0,
+            0,0.475f,0.525f,0,0,
+            0,0,0,1,0,
+            0,0,0,0,1
+    };
+
+    private static final float[] ACROMATOPSIA = {
+            0.299f,0.587f,0.114f,0,0,
+            0.299f,0.587f,0.114f,0,0,
+            0.299f,0.587f,0.114f,0,0,
+            0,0,0,1,0,
+            0,0,0,0,1
+    };
+
+    private static final float[] DEUTERANOPIA = {
+            0.625f,0.375f,0,0,0,
+            0.7f,0.3f,0,0,0,
+            0,0.3f,0.7f,0,0,
+            0,0,0,1,0,
+            0,0,0,0,1
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +121,8 @@ public class MediaDescriptorActivity extends AppCompatActivity {
     }
 
     private void setTemaTritanopia() {
+        ColorMatrixColorFilter filter = new ColorMatrixColorFilter(TRITANOPIA);
+        mediaCover.setColorFilter(filter);
         backBtn.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.secondaryColor_Tritanopia)));
         backBtn.setColorFilter(getResources().getColor(R.color.white));
         tramaLbl.setTextColor(getResources().getColor(R.color.accentColor1_Tritanopia));
@@ -99,6 +133,8 @@ public class MediaDescriptorActivity extends AppCompatActivity {
     }
 
     private void setTemaDaltonismo() {
+        ColorMatrixColorFilter filter = new ColorMatrixColorFilter(DEUTERANOPIA);
+        mediaCover.setColorFilter(filter);
         backBtn.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.secondaryColor_Daltonismo)));
         tramaLbl.setTextColor(getResources().getColor(R.color.accentColor1_Daltonismo));
         mediaTrama.setTextColor(getResources().getColor(R.color.accentColor1_Daltonismo));
@@ -108,6 +144,8 @@ public class MediaDescriptorActivity extends AppCompatActivity {
     }
 
     private void setTemaProtanopia() {
+        ColorMatrixColorFilter filter = new ColorMatrixColorFilter(PROTANOPIA);
+        mediaCover.setColorFilter(filter);
         backBtn.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.secondaryColor_Protanopia)));
         tramaLbl.setTextColor(getResources().getColor(R.color.accentColor1_Protanopia));
         mediaTrama.setTextColor(getResources().getColor(R.color.accentColor1_Protanopia));
@@ -117,9 +155,7 @@ public class MediaDescriptorActivity extends AppCompatActivity {
     }
 
     private void setTemaGreyScale() {
-        ColorMatrix matrix = new ColorMatrix();
-        matrix.setSaturation(0);
-        ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+        ColorMatrixColorFilter filter = new ColorMatrixColorFilter(ACROMATOPSIA);
         mediaCover.setColorFilter(filter);
         backBtn.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
         backBtn.setColorFilter(getResources().getColor(R.color.black));
