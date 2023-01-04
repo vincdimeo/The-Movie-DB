@@ -1,47 +1,67 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <arpa/inet.h>
-#include <netinet/in.h>
 
-#define PORT 8080
-#define MAXLINE 1024
+#include<stdio.h>
+#include<string.h>
+#include<sys/socket.h>
+#include<arpa/inet.h>
+#include<unistd.h>
 
-int int main(int argc, char const *argv[]) {
-  int sockfd;
-  char buffer[MAXLINE];
-  char *hello = "Hello from server";
-  struct sockaddr_in servaddr, cliaddr;
-  // Creating socket file descriptor
-  if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0 ) {
-    perror("socket creation failed");
-    exit(EXIT_FAILURE);
+int main(int argc, char const *argv[]) {
+  int socket_desc, client_sock, c, read_size;
+	struct sockaddr_in server, client;
+	char client_message[2000];
+
+  //Create socket
+	socket_desc = socket(AF_INET, SOCK_STREAM, 0);
+
+  if (socket_desc == -1) {
+    printf("Could not create socket");
   }
 
-  memset(&servaddr, 0, sizeof(servaddr));
-  memset(&cliaddr, 0, sizeof(cliaddr));
+  puts("Socket created");
 
-  servaddr.sin_family = AF_INET; // IPv4
-  servaddr.sin_addr.s_addr = INADDR_ANY;
-  servaddr.sin_port = htons(PORT);
+  //Prepare the sockaddr_in structure
+	server.sin_family = AF_INET;
+	server.sin_addr.s_addr = INADDR_ANY;
+	server.sin_port = htons(8080);
 
-  // Bind the socket with the server address
-  if (bind(sockfd, (const struct sockaddr *)&servaddr, sizeof(servaddr)) < 0 ) {
-    perror("bind failed");
-    exit(EXIT_FAILURE);
+  if (bind(socket_desc, (struct sockaddr *)&server, sizeof(server)) < 0) {
+    //print the error message
+		perror("bind failed. Error");
+		return 1;
   }
 
-  int len, n;
+  puts("bind done");
 
-  len = sizeof(cliaddr); //len is value/result
-  n = recvfrom(sockfd, (char *)buffer, MAXLINE, MSG_WAITALL, ( struct sockaddr *) &cliaddr, &len);
-  buffer[n] = '\0';
-  printf("Client : %s\n", buffer);
-  sendto(sockfd, (const char *)hello, strlen(hello), MSG_CONFIRM, (const struct sockaddr *) &cliaddr, len);
-  printf("Hello message sent.\n");
+  //Listen
+	listen(socket_desc , 3);
+
+  //Accept and incoming connection
+	puts("Waiting for incoming connections...");
+	c = sizeof(struct sockaddr_in);
+
+	//accept connection from an incoming client
+	client_sock = accept(socket_desc, (struct sockaddr *)&client, (socklen_t*)&c);
+
+  if (client_sock < 0) {
+    perror("accept failed");
+		return 1;
+  }
+
+  puts("Connection accepted");
+
+  //Receive a message from client
+	while ((read_size = recv(client_sock , client_message , 2000 , 0)) > 0 ) {
+    //Send the message back to client
+		write(client_sock , client_message , strlen(client_message));
+  }
+
+  if (read_size == 0) {
+		puts("Client disconnected");
+		fflush(stdout);
+	}
+	else if (read_size == -1)	{
+		perror("recv failed");
+	}
 
   return 0;
 }
