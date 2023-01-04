@@ -14,10 +14,10 @@ int main(int argc, char const *argv[]) {
 	socket_desc = socket(AF_INET, SOCK_STREAM, 0);
 
   if (socket_desc == -1) {
-    printf("Could not create socket");
+    printf("Errore durante creazione socket");
   }
 
-  puts("Socket created");
+  //puts("Socket creata correttamente");
 
   //Prepare the sockaddr_in structure
 	server.sin_family = AF_INET;
@@ -26,37 +26,39 @@ int main(int argc, char const *argv[]) {
 
   if (bind(socket_desc, (struct sockaddr *)&server, sizeof(server)) < 0) {
     //print the error message
-		perror("bind failed. Error");
+		perror("Bind fallito");
 		return 1;
   }
 
-  puts("bind done");
+  //puts("Bind eseguito");
 
   //Listen
 	listen(socket_desc , 3);
 
+  puts("*** Benvenuto sul server TheMovieDB ***");
+
   //Accept and incoming connection
-	puts("Waiting for incoming connections...");
+	puts("Server in ascolto...");
 	c = sizeof(struct sockaddr_in);
 
 	//accept connection from an incoming client
 	client_sock = accept(socket_desc, (struct sockaddr *)&client, (socklen_t*)&c);
 
   if (client_sock < 0) {
-    perror("accept failed");
+    perror("Errore durante connessione con il client");
 		return 1;
   }
 
-  puts("Connection accepted");
+  puts("Client connesso");
 
   //Receive a message from client
 	while ((read_size = recv(client_sock , client_message , 2000 , 0)) > 0 ) {
     //Send the message back to client
-		write(client_sock , client_message , strlen(client_message));
+		write(client_sock , "OK" , 2);
   }
 
   if (read_size == 0) {
-		puts("Client disconnected");
+		puts("Client disconnesso");
 		fflush(stdout);
 	}
 	else if (read_size == -1)	{
