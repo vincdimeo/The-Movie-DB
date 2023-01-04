@@ -95,7 +95,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                     editor.putString("Tema", tema);
                     editor.commit();
 
-                    clientThread.sendMessage(usernameValue + ", " + passwordValue + ", " + tema);
+                    clientThread.sendMessage("Registrazione;" + usernameValue + ";" + passwordValue + ";" + tema);
                     Toast.makeText(RegisterActivity.this, "Registrazione avvenuta con successo", Toast.LENGTH_SHORT).show();
                     //Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                     // startActivity(intent);
@@ -143,7 +143,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                                 new OutputStreamWriter(socket.getOutputStream())),
                                 true);
                         out.println(message);
-                        //socket.close();
+                        socket.close();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
