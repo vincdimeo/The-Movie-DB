@@ -14,18 +14,19 @@
 #include <pthread.h>
 
 struct User {
-  char username[100];
-  char password[100];
+  char username[50];
+  char password[50];
   char accessibility[100];
 };
 
 MYSQL *start_connection(MYSQL *conn);
 MYSQL_RES *send_query_insert(MYSQL *conn, MYSQL_RES *res, struct User user);
-MYSQL_RES *send_query_select(MYSQL *conn, MYSQL_RES *res, MYSQL_ROW row, struct User user);
+void send_query_select(MYSQL *conn, MYSQL_RES *res, MYSQL_ROW row, struct User *user);
 bool registration(struct User user, MYSQL *conn, MYSQL_RES *res);
-bool login(struct User user, MYSQL *conn, MYSQL_RES *res, MYSQL_ROW row);
+bool login(struct User *user, MYSQL *conn, MYSQL_RES *res, MYSQL_ROW row);
 void *connection_handler(void *);
 void close_connection(MYSQL *conn, MYSQL_RES *res);
+void sendMessageToClient(char* message, int sock);
 
 int main(int argc, char const *argv[]) {
   int socket_desc, client_sock, c, *new_sock;
@@ -47,7 +48,7 @@ int main(int argc, char const *argv[]) {
 	if(bind(socket_desc, (struct sockaddr *)&server, sizeof(server)) < 0) {
 		//print the error message
 		perror("Bind fallito");
-		return 1;
+		exit(1);
 	}
 
   //Listen
@@ -68,7 +69,7 @@ int main(int argc, char const *argv[]) {
 
     if (pthread_create(&sniffer_thread, NULL, connection_handler, (void*) new_sock) < 0) {
       perror("Errore durante la creazione del thread\n\n");
-			return 1;
+			exit(1);
     }
 
     printf("Handler assegnato\n\n");
@@ -76,7 +77,7 @@ int main(int argc, char const *argv[]) {
 
   if (client_sock < 0) {
 		perror("Connessione con il client fallita\n\n");
-		return 1;
+		exit(1);
 	}
 
   return 0;
@@ -105,7 +106,7 @@ MYSQL_RES *send_query_insert(MYSQL *conn, MYSQL_RES *res, struct User user) {
 
   if (mysql_query(conn, query_insert)) {
     fprintf(stderr, "%s\n\n", mysql_error(conn));
-    //exit(1);
+    exit(1);
   }
 
   res = mysql_use_result(conn);
@@ -113,10 +114,10 @@ MYSQL_RES *send_query_insert(MYSQL *conn, MYSQL_RES *res, struct User user) {
   return res;
 }
 
-MYSQL_RES *send_query_select(MYSQL *conn, MYSQL_RES *res, MYSQL_ROW row, struct User user) {
+void send_query_select(MYSQL *conn, MYSQL_RES *res, MYSQL_ROW row, struct User *user) {
   char query_select[200];
 
-  sprintf(query_select, "SELECT * FROM user WHERE username = '%s'", user.username);
+  sprintf(query_select, "SELECT username, accessibility FROM user WHERE username='%s' AND password='%s'", user->username, user->password);
 
   if (mysql_query(conn, query_select)) {
     fprintf(stderr, "%s\n", mysql_error(conn));
@@ -125,35 +126,23 @@ MYSQL_RES *send_query_select(MYSQL *conn, MYSQL_RES *res, MYSQL_ROW row, struct 
 
   res = mysql_use_result(conn);
 
-  printf("%s", query_select);
-
-  /* output table name */
-  printf("MySQL Tables in mysql database:\n");
-
   while ((row = mysql_fetch_row(res)) != NULL) {
-    printf("Username: %s Password: %s Accessibility: %s \n", row[0], row[1], row[2]);
+    strcpy(user->accessibility, row[0]);
   }
-
-  return res;
 }
 
 bool registration(struct User user, MYSQL *conn, MYSQL_RES *res) {
   res = send_query_insert(conn, res, user);
   close_connection(conn, res);
 
-  if (res != NULL) {
-    return false;
-  }
-  else {
-    return true;
-  }
+  return true;
 }
 
-bool login(struct User user, MYSQL *conn, MYSQL_RES *res, MYSQL_ROW row) {
-  res = send_query_select(conn, res, row, user);
+bool login(struct User *user, MYSQL *conn, MYSQL_RES *res, MYSQL_ROW row) {
+  send_query_select(conn, res, row, user);
   close_connection(conn, res);
 
-  if (res != NULL) {
+  if (strlen(user->accessibility) > 0) {
     return true;
   }
   else {
@@ -197,9 +186,7 @@ void *connection_handler(void *socket_desc) {
         else {
           printf("Errore durante registrazione\n\n");
           strcpy(message, "Errore");
-        }
-
-        send(sock, message, strlen(message), 0);
+        }       
       }
       else if (strcmp(token, "Login") == 0) {
         printf("Login utente in corso...\n\n");
@@ -210,16 +197,17 @@ void *connection_handler(void *socket_desc) {
         token = strtok(NULL, ";");
         strcpy(user.password, token);
 
-        token = strtok(NULL, ";");
-        strcpy(user.accessibility, token);
-
-        if (login(user, conn, res, row)) {
-          printf("Registrazione avvenuta con successo\n\n");
+        if (login(&user, conn, res, row)) {
+          printf("Login avvenuto con successo\n\n");
+          strcpy(message, user.accessibility);
         }
         else {
-          printf("Errore durante registrazione\n\n");
+          printf("Errore durante login\n\n");
+          strcpy(message, "Errore");
         }
       }
+
+      sendMessageToClient(message, sock); 
     }
 	}
 
@@ -235,6 +223,13 @@ void *connection_handler(void *socket_desc) {
 	free(socket_desc);
 
   return 0;
+}
+
+void sendMessageToClient(char* message, int sock) {
+  if (write(sock, message, strlen(message)) < 0) {
+    perror("Errore durante la write\n\n");
+	  exit(1);
+  }
 }
 
 void close_connection(MYSQL *conn, MYSQL_RES *res) {

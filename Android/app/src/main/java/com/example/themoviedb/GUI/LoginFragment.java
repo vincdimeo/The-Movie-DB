@@ -1,12 +1,25 @@
 package com.example.themoviedb.GUI;
 
+import static android.content.Context.MODE_PRIVATE;
 import static androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG;
 import static androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_WEAK;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+
+import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStreamWriter;
+import java.net.InetAddress;
+import java.net.Socket;
 import java.util.concurrent.Executor;
 
 import androidx.biometric.BiometricManager;
@@ -25,6 +38,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.themoviedb.MainActivity;
 import com.example.themoviedb.R;
 
 
@@ -76,12 +90,8 @@ public class LoginFragment extends Fragment {
                     Toast.makeText(getContext(), "Alcuni campi sono vuoti", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    // Controllo credenziali sul db
-                    /*
-                    if (ricordaUsername.isChecked()) {
-                        // Memorizza username in SharedPreferences
-                    }
-                    */
+                    LoginUser loginUser = new LoginUser(username.getText().toString(), password.getText().toString(), getContext());
+                    loginUser.execute();
                 }
             }
         });
@@ -165,6 +175,106 @@ public class LoginFragment extends Fragment {
         else {
             oppureLbl.setVisibility(View.INVISIBLE);
             biometricBtn.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    class LoginUser extends AsyncTask<Void, Void, String> {
+
+        private static final String SERVER_IP = "20.197.17.179";
+        private static final int SERVER_PORT = 8080;
+        private InputStream in;
+        private BufferedWriter out;
+        private Socket socket;
+        private String username, password;
+        private Context context;
+        private String response = "";
+        private ProgressDialog pdLoading;
+
+        LoginUser(String username, String password, Context context) {
+            this.username = username;
+            this.password = password;
+            this.context = context;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pdLoading = new ProgressDialog(context);
+            pdLoading.setMessage("\tLogin in corso...");
+            pdLoading.setCancelable(false);
+            pdLoading.show();
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            try {
+                InetAddress serverAddr = InetAddress.getByName(SERVER_IP);
+                socket = new Socket(serverAddr, SERVER_PORT);
+
+                in = socket.getInputStream();
+                out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+
+                sendDataToServer("Login;" + username + ";" + password + ";");
+
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(1024);
+                byte[] buffer = new byte[1024];
+                int bytesRead;
+
+                if ((bytesRead = in.read(buffer)) != -1) {
+                    byteArrayOutputStream.write(buffer, 0, bytesRead);
+                    response = byteArrayOutputStream.toString("UTF-8");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            finally {
+                try {
+                    socket.close();
+                    in.close();
+                    out.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            return response;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            pdLoading.dismiss();
+
+            System.out.println("Server: " + result);
+
+            if (!result.equals("Errore")) {
+                SharedPreferences sharedPreferences = getContext().getSharedPreferences("Utente", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("Username", username);
+                editor.putString("Password", password);
+                editor.putBoolean("Logged", true);
+                editor.putString("Tema", result);
+                editor.commit();
+
+                Toast.makeText(context, "Login avvenuto con successo", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(context, MainActivity.class);
+                startActivity(intent);
+            }
+            else {
+                Toast.makeText(context, "Si è verificato un errore durante la login", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        public void sendDataToServer(final String data) {
+            try {
+                out.write(data);
+                out.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

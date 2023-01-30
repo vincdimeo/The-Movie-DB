@@ -13,11 +13,13 @@ import java.net.UnknownHostException;
 public class ClientThread implements Runnable {
 
     private final String SERVER_IP = "20.197.17.179";
+    //private final String SERVER_IP = "192.168.1.15";
     private final int SERVER_PORT = 8080;
     private Socket socket;
     private BufferedReader in;
     private PrintWriter out;
-    private String dataToSend, response = "";
+    private String dataToSend;
+    private String response = new String();
 
     public ClientThread(String dataToSend) {
         this.dataToSend = dataToSend;
@@ -33,11 +35,12 @@ public class ClientThread implements Runnable {
 
             this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
+            System.out.println("Server: " + in.readLine());
             while (!Thread.currentThread().isInterrupted()) {
                 String message = in.readLine();
                 System.out.println("*** " + message);
 
-                if (message.equals("OK")) {
+                if (message != null && message.equals("OK")) {
                     response = "OK";
                 }
             }
@@ -46,10 +49,6 @@ public class ClientThread implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public String getResponse() {
-        return response;
     }
 
     public void sendDataToServer(final String data) {
@@ -63,5 +62,9 @@ public class ClientThread implements Runnable {
                 e.printStackTrace();
             }
         }).start();
+    }
+
+    public String getResponse() {
+        return response;
     }
 }
