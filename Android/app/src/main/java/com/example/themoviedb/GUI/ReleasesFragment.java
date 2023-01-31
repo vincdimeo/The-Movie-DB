@@ -27,9 +27,9 @@ import java.util.List;
 
 public class ReleasesFragment extends Fragment {
 
-    private RecyclerView popolariRV, serieRV, netflixRV;
-    private MediaAdapter popularAdapter, upcomingAdapter, latestAdapter;
-    private TextView releasesTitolo, popolariLbl, serieLbl, netflixLbl;
+    private RecyclerView popolariRV, serieRV;
+    private MediaAdapter popularAdapter, upcomingAdapter;
+    private TextView releasesTitolo, popolariLbl, serieLbl;
 
     public ReleasesFragment() {
         // Required empty public constructor
@@ -81,9 +81,6 @@ public class ReleasesFragment extends Fragment {
         serieLbl = view.findViewById(R.id.serieTV);
         serieRV = view.findViewById(R.id.serieRV);
         serieRV.setHasFixedSize(true);
-        netflixLbl = view.findViewById(R.id.netflix);
-        netflixRV = view.findViewById(R.id.netflixRV);
-        netflixRV.setHasFixedSize(true);
 
         LinearLayoutManager ll1 = new LinearLayoutManager(this.getContext());
         ll1.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -96,7 +93,6 @@ public class ReleasesFragment extends Fragment {
 
         popolariRV.setLayoutManager(ll1);
         serieRV.setLayoutManager(ll2);
-        netflixRV.setLayoutManager(ll3);
 
         switch (MainActivity.tema) {
             case "Nessuno":
@@ -135,39 +131,33 @@ public class ReleasesFragment extends Fragment {
         releasesTitolo.setTextColor(getResources().getColor(R.color.accentColor1_Tritanopia));
         popolariLbl.setTextColor(getResources().getColor(R.color.accentColor1_Tritanopia));
         serieLbl.setTextColor(getResources().getColor(R.color.accentColor1_Tritanopia));
-        netflixLbl.setTextColor(getResources().getColor(R.color.accentColor1_Tritanopia));
     }
 
     private void setTemaDaltonismo() {
         releasesTitolo.setTextColor(getResources().getColor(R.color.accentColor1_Daltonismo));
         popolariLbl.setTextColor(getResources().getColor(R.color.accentColor1_Daltonismo));
         serieLbl.setTextColor(getResources().getColor(R.color.accentColor1_Daltonismo));
-        netflixLbl.setTextColor(getResources().getColor(R.color.accentColor1_Daltonismo));
     }
 
     private void setTemaProtanopia() {
         releasesTitolo.setTextColor(getResources().getColor(R.color.accentColor1_Protanopia));
         popolariLbl.setTextColor(getResources().getColor(R.color.accentColor1_Protanopia));
         serieLbl.setTextColor(getResources().getColor(R.color.accentColor1_Protanopia));
-        netflixLbl.setTextColor(getResources().getColor(R.color.accentColor1_Protanopia));
     }
 
     private void setTemaGreyScale() {
         releasesTitolo.setTextColor(getResources().getColor(R.color.accentColor1_GreyScale));
         popolariLbl.setTextColor(getResources().getColor(R.color.accentColor1_GreyScale));
         serieLbl.setTextColor(getResources().getColor(R.color.accentColor1_GreyScale));
-        netflixLbl.setTextColor(getResources().getColor(R.color.accentColor1_GreyScale));
     }
 
     private void increaseText() {
         popolariLbl.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_large));
         serieLbl.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_large));
-        netflixLbl.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_large));
     }
 
     private void setTemaDefault() {
         popolariLbl.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_dimen));
         serieLbl.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_dimen));
-        netflixLbl.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.label_dimen));
     }
 }

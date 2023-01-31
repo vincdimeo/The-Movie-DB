@@ -87,33 +87,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/serieTV" />
 
-            <TextView
-                android:id="@+id/netflix"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="32dp"
-                android:text="I più visti su Netflix"
-                android:textColor="@color/black"
-                android:textSize="@dimen/label_dimen"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/serieRV" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/netflixRV"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:scrollbarStyle="insideInset"
-                android:scrollbars="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/netflix" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
