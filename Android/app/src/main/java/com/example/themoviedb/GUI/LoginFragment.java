@@ -248,15 +248,13 @@ public class LoginFragment extends Fragment {
             System.out.println("Server: " + result);
 
             if (!result.equals("Errore")) {
-                if (ricordaUsername.isChecked()) {
-                    SharedPreferences sharedPreferences = getContext().getSharedPreferences("Utente", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("Username", username);
-                    editor.putString("Password", password);
-                    editor.putBoolean("Logged", true);
-                    editor.putString("Tema", result);
-                    editor.commit();
-                }
+                SharedPreferences sharedPreferences = getContext().getSharedPreferences("Utente", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("Username", username);
+                editor.putString("Password", password);
+                editor.putBoolean("Logged", true);
+                editor.putString("Tema", result.substring(0, result.length() - 1));
+                editor.commit();
 
                 Toast.makeText(context, "Login avvenuto con successo", Toast.LENGTH_SHORT).show();
 
