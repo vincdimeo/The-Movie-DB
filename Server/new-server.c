@@ -21,7 +21,7 @@ struct User {
 
 MYSQL *start_connection(MYSQL *conn);
 MYSQL_RES *send_query_insert(MYSQL *conn, MYSQL_RES *res, struct User user);
-void send_query_select(MYSQL *conn, MYSQL_RES *res, MYSQL_ROW row, struct User *user);
+MYSQL_RES *send_query_select(MYSQL *conn, MYSQL_RES *res, MYSQL_ROW row, struct User *user);
 bool registration(struct User user, MYSQL *conn, MYSQL_RES *res);
 bool login(struct User *user, MYSQL *conn, MYSQL_RES *res, MYSQL_ROW row);
 void *connection_handler(void *);
@@ -114,10 +114,10 @@ MYSQL_RES *send_query_insert(MYSQL *conn, MYSQL_RES *res, struct User user) {
   return res;
 }
 
-void send_query_select(MYSQL *conn, MYSQL_RES *res, MYSQL_ROW row, struct User *user) {
+MYSQL_RES *send_query_select(MYSQL *conn, MYSQL_RES *res, MYSQL_ROW row, struct User *user) {
   char query_select[200];
 
-  sprintf(query_select, "SELECT username, accessibility FROM user WHERE username='%s' AND password='%s'", user->username, user->password);
+  sprintf(query_select, "SELECT accessibility FROM user WHERE username='%s' AND password='%s'", user->username, user->password);
 
   if (mysql_query(conn, query_select)) {
     fprintf(stderr, "%s\n", mysql_error(conn));
@@ -126,9 +126,11 @@ void send_query_select(MYSQL *conn, MYSQL_RES *res, MYSQL_ROW row, struct User *
 
   res = mysql_use_result(conn);
 
-  while ((row = mysql_fetch_row(res)) != NULL) {
+  if ((row = mysql_fetch_row(res)) != NULL) {
     strcpy(user->accessibility, row[0]);
   }
+  
+  return res; 
 }
 
 bool registration(struct User user, MYSQL *conn, MYSQL_RES *res) {
@@ -139,10 +141,10 @@ bool registration(struct User user, MYSQL *conn, MYSQL_RES *res) {
 }
 
 bool login(struct User *user, MYSQL *conn, MYSQL_RES *res, MYSQL_ROW row) {
-  send_query_select(conn, res, row, user);
+  res = send_query_select(conn, res, row, user);
   close_connection(conn, res);
 
-  if (strlen(user->accessibility) > 0) {
+  if (res != NULL) {
     return true;
   }
   else {
