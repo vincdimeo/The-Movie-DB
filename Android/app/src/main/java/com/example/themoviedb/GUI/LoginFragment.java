@@ -73,6 +73,13 @@ public class LoginFragment extends Fragment {
         biometricBtn = view.findViewById(R.id.fingerprint);
         loginBtn = view.findViewById(R.id.mostraBtn);
 
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("Utente", MODE_PRIVATE);
+        ricordaUsername.setChecked(sharedPreferences.getBoolean("Check", false));
+
+        if (ricordaUsername.isChecked()) {
+            username.setText(sharedPreferences.getString("Username", ""));
+        }
+
         checkBioMetricSupported();
 
         registratiLbl.setOnClickListener(new View.OnClickListener() {
@@ -108,7 +115,11 @@ public class LoginFragment extends Fragment {
             @Override
             public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
                 super.onAuthenticationSucceeded(result);
+
                 Toast.makeText(getContext(), "Autenticazione effettuata con successo" , Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                startActivity(intent);
             }
 
             // this method will automatically call when it is failed verify fingerprint
@@ -253,6 +264,7 @@ public class LoginFragment extends Fragment {
                 editor.putString("Username", username);
                 editor.putString("Password", password);
                 editor.putBoolean("Logged", true);
+                editor.putBoolean("Check", ricordaUsername.isChecked());
                 editor.putString("Tema", result.substring(0, result.length() - 1));
                 editor.commit();
 
