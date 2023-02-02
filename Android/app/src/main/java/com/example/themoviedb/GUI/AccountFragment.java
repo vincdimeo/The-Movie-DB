@@ -63,7 +63,6 @@ public class AccountFragment extends Fragment {
                 SharedPreferences sharedPreferences = getContext().getSharedPreferences("Utente", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putBoolean("Logged", false);
-                editor.putString("Tema", "Nessuno");
                 editor.commit();
 
                 Intent intent = new Intent(getContext(), MainActivity.class);

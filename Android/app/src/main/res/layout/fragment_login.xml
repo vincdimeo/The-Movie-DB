@@ -27,7 +27,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginTitolo">
 
-
         <ImageView
             android:id="@+id/icon"
             android:layout_width="350px"
@@ -83,6 +82,7 @@
             android:text="Ricorda username"
             android:textColor="@color/black"
             android:textSize="@dimen/label_dimen"
+            android:checked="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/password" />
 

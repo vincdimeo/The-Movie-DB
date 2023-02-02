@@ -17,6 +17,7 @@ struct User {
   char username[50];
   char password[50];
   char accessibility[100];
+  int flag;
 };
 
 MYSQL *start_connection(MYSQL *conn);
@@ -30,8 +31,7 @@ void sendMessageToClient(char* message, int sock);
 
 int main(int argc, char const *argv[]) {
   int socket_desc, client_sock, c, *new_sock;
-	struct sockaddr_in server , client;
-	char client_message[255];
+	struct sockaddr_in server, client;
 
   //Create socket
 	socket_desc = socket(AF_INET , SOCK_STREAM , 0);
@@ -115,9 +115,14 @@ MYSQL_RES *send_query_insert(MYSQL *conn, MYSQL_RES *res, struct User user) {
 }
 
 MYSQL_RES *send_query_select(MYSQL *conn, MYSQL_RES *res, MYSQL_ROW row, struct User *user) {
-  char query_select[200];
+  char query_select[1000];
 
-  sprintf(query_select, "SELECT accessibility FROM user WHERE username='%s' AND password='%s'", user->username, user->password);
+  if (user->flag > 0) {
+    sprintf(query_select, "SELECT accessibility FROM user WHERE username='%s'", user->username);
+  }
+  else {
+    sprintf(query_select, "SELECT accessibility FROM user WHERE username='%s' AND password='%s'", user->username, user->password);
+  }
 
   if (mysql_query(conn, query_select)) {
     fprintf(stderr, "%s\n", mysql_error(conn));
@@ -190,7 +195,8 @@ void *connection_handler(void *socket_desc) {
           strcpy(message, "Errore");
         }       
       }
-      else if (strcmp(token, "Login") == 0) {
+
+      if (strcmp(token, "Login") == 0) {
         printf("Login utente in corso...\n\n");
 
         token = strtok(NULL, ";");
@@ -198,6 +204,27 @@ void *connection_handler(void *socket_desc) {
 
         token = strtok(NULL, ";");
         strcpy(user.password, token);
+
+        if (login(&user, conn, res, row)) {
+          printf("Login avvenuto con successo\n\n");
+          strcpy(message, user.accessibility);
+        }
+        else {
+          printf("Errore durante login\n\n");
+          strcpy(message, "Errore");
+        }
+      }
+
+      if (strcmp(token, "LoginFinger") == 0) {
+        printf("Login utente in corso...\n\n");
+
+        token = strtok(NULL, ";");
+        strcpy(user.username, token);
+
+        token = strtok(NULL, ";");
+        strcpy(user.password, token);
+
+        user.flag = 1;
 
         if (login(&user, conn, res, row)) {
           printf("Login avvenuto con successo\n\n");

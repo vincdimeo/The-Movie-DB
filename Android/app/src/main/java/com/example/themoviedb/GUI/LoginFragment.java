@@ -74,7 +74,6 @@ public class LoginFragment extends Fragment {
         loginBtn = view.findViewById(R.id.mostraBtn);
 
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("Utente", MODE_PRIVATE);
-        ricordaUsername.setChecked(sharedPreferences.getBoolean("Check", false));
 
         if (ricordaUsername.isChecked()) {
             username.setText(sharedPreferences.getString("Username", ""));
@@ -97,7 +96,7 @@ public class LoginFragment extends Fragment {
                     Toast.makeText(getContext(), "Alcuni campi sono vuoti", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    LoginUser loginUser = new LoginUser(username.getText().toString(), password.getText().toString(), getContext());
+                    LoginUser loginUser = new LoginUser(username.getText().toString(), password.getText().toString(), 0, getContext());
                     loginUser.execute();
                 }
             }
@@ -116,10 +115,8 @@ public class LoginFragment extends Fragment {
             public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
                 super.onAuthenticationSucceeded(result);
 
-                Toast.makeText(getContext(), "Autenticazione effettuata con successo" , Toast.LENGTH_SHORT).show();
-
-                Intent intent = new Intent(getContext(), MainActivity.class);
-                startActivity(intent);
+                LoginUser loginUser = new LoginUser(username.getText().toString(), password.getText().toString(), 1, getContext());
+                loginUser.execute();
             }
 
             // this method will automatically call when it is failed verify fingerprint
@@ -144,7 +141,7 @@ public class LoginFragment extends Fragment {
         //Show prompt dialog
         return new BiometricPrompt.PromptInfo.Builder()
                 .setTitle("Inserisci PIN")
-                .setSubtitle("Effettua l'accesso usando le credenziali del tuo dispositivo");
+                .setSubtitle("Usa il PIN del dispositivo o l'impronta per accedere");
     }
 
     void checkBioMetricSupported() {
@@ -191,19 +188,22 @@ public class LoginFragment extends Fragment {
 
     class LoginUser extends AsyncTask<Void, Void, String> {
 
-        private static final String SERVER_IP = "20.197.17.179";
+        //private static final String SERVER_IP = "20.197.17.179";
+        private static final String SERVER_IP = "192.168.1.15";
         private static final int SERVER_PORT = 8080;
         private InputStream in;
         private BufferedWriter out;
         private Socket socket;
         private String username, password;
         private Context context;
+        private int flag = 0;
         private String response = "";
         private ProgressDialog pdLoading;
 
-        LoginUser(String username, String password, Context context) {
+        LoginUser(String username, String password, int flag, Context context) {
             this.username = username;
             this.password = password;
+            this.flag = flag;
             this.context = context;
         }
 
@@ -225,7 +225,12 @@ public class LoginFragment extends Fragment {
                 in = socket.getInputStream();
                 out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
-                sendDataToServer("Login;" + username + ";" + password + ";");
+                if (flag == 0) {
+                    sendDataToServer("Login;" + username + ";" + password + ";");
+                }
+                else {
+                    sendDataToServer("LoginFinger;" + username + ";null;");
+                }
 
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(1024);
                 byte[] buffer = new byte[1024];
@@ -256,8 +261,6 @@ public class LoginFragment extends Fragment {
             super.onPostExecute(result);
             pdLoading.dismiss();
 
-            System.out.println("Server: " + result);
-
             if (!result.equals("Errore")) {
                 SharedPreferences sharedPreferences = getContext().getSharedPreferences("Utente", MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -265,7 +268,7 @@ public class LoginFragment extends Fragment {
                 editor.putString("Password", password);
                 editor.putBoolean("Logged", true);
                 editor.putBoolean("Check", ricordaUsername.isChecked());
-                editor.putString("Tema", result.substring(0, result.length() - 1));
+                editor.putString("Tema", result);
                 editor.commit();
 
                 Toast.makeText(context, "Login avvenuto con successo", Toast.LENGTH_SHORT).show();

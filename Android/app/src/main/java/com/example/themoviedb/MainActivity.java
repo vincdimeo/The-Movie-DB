@@ -28,7 +28,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     public static Utente utente = new Utente(null, null, null);
-    public static String tema = "";
+    public static String tema = "Nessuno";
     private BottomNavigationView bottomNav;
 
     @Override
@@ -37,14 +37,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         SharedPreferences sharedPreferences = getSharedPreferences("Utente", MODE_PRIVATE);
-        Utente u = new Utente(
+
+        utente = new Utente(
                 sharedPreferences.getString("Username", ""),
                 sharedPreferences.getString("Password", ""),
                 sharedPreferences.getBoolean("Logged", false)
                 );
 
-        utente = u;
-        tema = sharedPreferences.getString("Tema", "Nessuno");
+        if (utente.isLogged()) {
+            tema = sharedPreferences.getString("Tema", "Nessuno");
+        }
 
         bottomNav = findViewById(R.id.bottomNav);
         bottomNav.setSelectedItemId(R.id.releases);

@@ -86,7 +86,8 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
 
     class RegisterUser extends AsyncTask<Void, Void, String> {
 
-        private static final String SERVER_IP = "20.197.17.179";
+        //private static final String SERVER_IP = "20.197.17.179";
+        private static final String SERVER_IP = "192.168.1.15";
         private static final int SERVER_PORT = 8080;
         private InputStream in;
         private BufferedWriter out;
