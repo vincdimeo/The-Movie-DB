@@ -131,7 +131,7 @@ MYSQL_RES *send_query_select(MYSQL *conn, MYSQL_RES *res, MYSQL_ROW row, struct 
 
   res = mysql_use_result(conn);
 
-  if ((row = mysql_fetch_row(res)) != NULL) {
+  while ((row = mysql_fetch_row(res)) != NULL) {
     strcpy(user->accessibility, row[0]);
   }
   
@@ -149,7 +149,7 @@ bool login(struct User *user, MYSQL *conn, MYSQL_RES *res, MYSQL_ROW row) {
   res = send_query_select(conn, res, row, user);
   close_connection(conn, res);
 
-  if (res != NULL) {
+  if (mysql_num_rows(res) > 0) {
     return true;
   }
   else {
