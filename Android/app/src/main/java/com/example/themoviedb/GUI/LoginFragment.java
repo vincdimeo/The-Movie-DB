@@ -123,7 +123,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void onAuthenticationFailed() {
                 super.onAuthenticationFailed();
-                //attempt not regconized fingerprint
+                //attempt not recognized fingerprint
                 Toast.makeText(getContext(), "Autenticazione fallita", Toast.LENGTH_SHORT).show();
             }
         });
@@ -140,8 +140,8 @@ public class LoginFragment extends Fragment {
     BiometricPrompt.PromptInfo.Builder dialogMetric() {
         //Show prompt dialog
         return new BiometricPrompt.PromptInfo.Builder()
-                .setTitle("Inserisci PIN")
-                .setSubtitle("Usa il PIN del dispositivo o l'impronta per accedere");
+                .setTitle("Accesso a TheMovieDB")
+                .setSubtitle("Utilizza le impostazioni di sicurezza del tuo dispositivo per accedere");
     }
 
     void checkBioMetricSupported() {
