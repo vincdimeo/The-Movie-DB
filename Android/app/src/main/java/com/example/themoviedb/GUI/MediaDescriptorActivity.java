@@ -117,6 +117,30 @@ public class MediaDescriptorActivity extends AppCompatActivity {
             case "Testo grande":
                 increaseText();
                 break;
+
+            case "Scala di grigi + Testo grande":
+                setTemaDefault();
+                setTemaGreyScale();
+                increaseText();
+                break;
+
+            case "Filtro rosso/verde + Testo grande":
+                setTemaDefault();
+                setTemaProtanopia();
+                increaseText();
+                break;
+
+            case "Filtro verde/rosso + Testo grande":
+                setTemaDefault();
+                setTemaDaltonismo();
+                increaseText();
+                break;
+
+            case "Filtro blu/giallo + Testo grande":
+                setTemaDefault();
+                setTemaTritanopia();
+                increaseText();
+                break;
         }
     }
 

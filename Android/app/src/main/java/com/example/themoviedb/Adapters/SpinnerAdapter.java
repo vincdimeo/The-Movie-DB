@@ -20,7 +20,11 @@ public class SpinnerAdapter extends BaseAdapter {
             "Filtro rosso/verde",
             "Filtro verde/rosso",
             "Filtro blu/giallo",
-            "Testo grande"
+            "Testo grande",
+            "Scala di grigi + Testo grande",
+            "Filtro rosso/verde + Testo grande",
+            "Filtro verde/rosso + Testo grande",
+            "Filtro blu/giallo + Testo grande"
     };
 
     private String[] tipologie = {
@@ -29,7 +33,11 @@ public class SpinnerAdapter extends BaseAdapter {
             "Protanopia",
             "Daltonismo",
             "Tritanopia",
-            "Ipovisione"
+            "Ipovisione",
+            "Acromatopsia + Ipovisione",
+            "Protanopia + Ipovisione",
+            "Daltonismo + Ipovisione",
+            "Tritanopia + Ipovisione"
     };
 
     private Context context;

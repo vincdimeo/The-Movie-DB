@@ -81,6 +81,26 @@ public class ResultsActivity extends AppCompatActivity {
 
             case "Testo grande":
                 break;
+
+            case "Scala di grigi + Testo grande":
+                setTemaDefault();
+                setTemaGreyScale();
+                break;
+
+            case "Filtro rosso/verde + Testo grande":
+                setTemaDefault();
+                setTemaProtanopia();
+                break;
+
+            case "Filtro verde/rosso + Testo grande":
+                setTemaDefault();
+                setTemaDaltonismo();
+                break;
+
+            case "Filtro blu/giallo + Testo grande":
+                setTemaDefault();
+                setTemaTritanopia();
+                break;
         }
 
         backBtn.setOnClickListener(new View.OnClickListener() {

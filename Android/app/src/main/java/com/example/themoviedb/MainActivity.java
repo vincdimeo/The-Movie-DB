@@ -100,6 +100,22 @@ public class MainActivity extends AppCompatActivity {
 
             case "Testo grande":
                 break;
+
+            case "Scala di grigi + Testo grande":
+                setGreyScaleBar();
+                break;
+
+            case "Filtro rosso/verde + Testo grande":
+                setProtanopiaBar();
+                break;
+
+            case "Filtro verde/rosso + Testo grande":
+                setDaltonismoBar();
+                break;
+
+            case "Filtro blu/giallo + Testo grande":
+                setTritanopiaBar();
+                break;
         }
     }
 

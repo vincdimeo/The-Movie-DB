@@ -124,6 +124,30 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.MyViewHold
             case "Testo grande":
                 increaseText(holder);
                 break;
+
+            case "Scala di grigi + Testo grande":
+                setTemaDefault(holder);
+                setTemaGreyScale(holder);
+                increaseText(holder);
+                break;
+
+            case "Filtro rosso/verde + Testo grande":
+                setTemaDefault(holder);
+                setTemaProtanopia(holder);
+                increaseText(holder);
+                break;
+
+            case "Filtro verde/rosso + Testo grande":
+                setTemaDefault(holder);
+                setTemaDaltonismo(holder);
+                increaseText(holder);
+                break;
+
+            case "Filtro blu/giallo + Testo grande":
+                setTemaDefault(holder);
+                setTemaTritanopia(holder);
+                increaseText(holder);
+                break;
         }
 
         holder.mostraBtn.setOnClickListener(new View.OnClickListener() {
