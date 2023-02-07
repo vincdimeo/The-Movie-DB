@@ -20,6 +20,7 @@ import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.security.PrivateKey;
 import java.util.concurrent.Executor;
 
 import androidx.biometric.BiometricManager;
@@ -49,6 +50,9 @@ public class LoginFragment extends Fragment {
     private CheckBox ricordaUsername;
     private ImageView biometricBtn;
     private Button loginBtn;
+    private Executor executor;
+    private BiometricPrompt biometricPrompt;
+    private BiometricPrompt.PromptInfo promptInfo;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -102,8 +106,8 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        Executor executor = ContextCompat.getMainExecutor(getContext());
-        BiometricPrompt biometricPrompt = new BiometricPrompt((FragmentActivity) getContext(), executor, new BiometricPrompt.AuthenticationCallback() {
+        executor = ContextCompat.getMainExecutor(this.getContext());
+        biometricPrompt = new BiometricPrompt((FragmentActivity) this.getContext(), executor, new BiometricPrompt.AuthenticationCallback() {
             @Override
             public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
                 super.onAuthenticationError(errorCode, errString);
@@ -128,20 +132,20 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        biometricBtn.setOnClickListener(v -> {
-            BiometricPrompt.PromptInfo.Builder promptInfo = dialogMetric();
-            promptInfo.setDeviceCredentialAllowed(true);
-            biometricPrompt.authenticate(promptInfo.build());
+        promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                .setTitle("Accedi a TheMovieDB")
+                .setSubtitle("Utilizza le impostazioni di sicurezza del tuo dispositivo per accedere")
+                .setNegativeButtonText("Annulla")
+                .build();
+
+        biometricBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                biometricPrompt.authenticate(promptInfo);
+            }
         });
 
         return  view;
-    }
-
-    BiometricPrompt.PromptInfo.Builder dialogMetric() {
-        //Show prompt dialog
-        return new BiometricPrompt.PromptInfo.Builder()
-                .setTitle("Accesso a TheMovieDB")
-                .setSubtitle("Utilizza le impostazioni di sicurezza del tuo dispositivo per accedere");
     }
 
     void checkBioMetricSupported() {

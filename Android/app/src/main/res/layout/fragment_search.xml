@@ -34,6 +34,7 @@
         android:paddingStart="20sp"
         android:paddingEnd="20sp"
         android:maxLines="1"
+        android:inputType="text"
         android:textSize="@dimen/label_dimen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
