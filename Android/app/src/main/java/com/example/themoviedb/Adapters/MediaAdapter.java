@@ -169,7 +169,6 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MyViewHolder
     private void setTemaGreyScale(MyViewHolder holder) {
         ColorMatrixColorFilter filter = new ColorMatrixColorFilter(ACROMATOPSIA);
         holder.mediaImg.setColorFilter(filter);
-        holder.mediaImg.setColorFilter(filter);
         holder.mediaTitle.setTextColor(context.getResources().getColor(R.color.accentColor1_GreyScale));
     }
 

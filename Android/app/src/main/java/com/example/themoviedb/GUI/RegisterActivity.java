@@ -67,9 +67,8 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                     Toast.makeText(RegisterActivity.this, "Alcuni campi sono vuoti", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    /*
                     RegisterUser registerUser = new RegisterUser(username.getText().toString(), password.getText().toString(), tema);
-                    registerUser.execute();*/
+                    registerUser.execute();
                     SharedPreferences sharedPreferences = getSharedPreferences("Utente", MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("Username", username.getText().toString());
